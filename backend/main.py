@@ -1,4 +1,8 @@
 import time
+import os
+import json
+import uuid
+from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -48,6 +52,32 @@ def calculate_autonomy_score(timeline: List[dict]) -> int:
         score -= (retries * 5)
     return max(0, score)
 
+def save_trace_log(input_text, agent_timeline, action_chain, constraints, final_output, total_time_ms):
+    try:
+        log_dir = r"D:\humaa\EconoSense-pk\antigravity-artifacts-logs"
+        os.makedirs(log_dir, exist_ok=True)
+        
+        trace_id = str(uuid.uuid4())
+        filename = f"analysis_trace_{trace_id}.json"
+        filepath = os.path.join(log_dir, filename)
+        
+        agent_decisions = {item["agent"]: item.get("reasoning_trace", []) for item in agent_timeline if "agent" in item}
+        
+        trace_data = {
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "input_text": input_text,
+            "agent_decisions": agent_decisions,
+            "action_chain": action_chain,
+            "constraint_check": constraints,
+            "final_output": final_output,
+            "total_time_ms": total_time_ms
+        }
+        
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(trace_data, f, indent=2)
+    except Exception as e:
+        print(f"Failed to save trace log: {e}")
+
 # Define the request body schema
 class AnalyzeRequest(BaseModel):
     news_text: str
@@ -94,9 +124,10 @@ async def analyze_news(request: AnalyzeRequest):
             simulation, ret5, trace5 = simulation_agent.simulate(top_action)
             agent_timeline.append({"agent": "SimulationAgent", "time_ms": round((time.time() - t5) * 1000, 2), "retries": ret5, "reasoning_trace": trace5})
 
-        agent_timeline.append({"total_time_ms": round((time.time() - start_total) * 1000, 2)})
+        total_time = round((time.time() - start_total) * 1000, 2)
+        agent_timeline.append({"total_time_ms": total_time})
 
-        return {
+        final_output = {
             "system_autonomy_score": calculate_autonomy_score(agent_timeline),
             "insights": insights,
             "actions": actions,
@@ -105,6 +136,10 @@ async def analyze_news(request: AnalyzeRequest):
             "simulation": simulation,
             "agent_timeline": agent_timeline
         }
+        
+        save_trace_log(request.news_text, agent_timeline, action_chain, constraints, final_output, total_time)
+
+        return final_output
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -169,9 +204,10 @@ async def analyze_url(request: AnalyzeUrlRequest):
             simulation, ret5, trace5 = simulation_agent.simulate(top_action)
             agent_timeline.append({"agent": "SimulationAgent", "time_ms": round((time.time() - t5) * 1000, 2), "retries": ret5, "reasoning_trace": trace5})
 
-        agent_timeline.append({"total_time_ms": round((time.time() - start_total) * 1000, 2)})
+        total_time = round((time.time() - start_total) * 1000, 2)
+        agent_timeline.append({"total_time_ms": total_time})
 
-        return {
+        final_output = {
             "system_autonomy_score": calculate_autonomy_score(agent_timeline),
             "insights": insights,
             "actions": actions,
@@ -180,6 +216,10 @@ async def analyze_url(request: AnalyzeUrlRequest):
             "simulation": simulation,
             "agent_timeline": agent_timeline
         }
+        
+        save_trace_log(request.url, agent_timeline, action_chain, constraints, final_output, total_time)
+
+        return final_output
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -237,9 +277,10 @@ async def analyze_multi(request: AnalyzeMultiRequest):
             simulation, ret5, trace5 = simulation_agent.simulate(top_action)
             agent_timeline.append({"agent": "SimulationAgent", "time_ms": round((time.time() - t5) * 1000, 2), "retries": ret5, "reasoning_trace": trace5})
 
-        agent_timeline.append({"total_time_ms": round((time.time() - start_total) * 1000, 2)})
+        total_time = round((time.time() - start_total) * 1000, 2)
+        agent_timeline.append({"total_time_ms": total_time})
 
-        return {
+        final_output = {
             "system_autonomy_score": calculate_autonomy_score(agent_timeline),
             "contradiction_analysis": contradiction_result,
             "insights": insights,
@@ -249,6 +290,10 @@ async def analyze_multi(request: AnalyzeMultiRequest):
             "simulation": simulation,
             "agent_timeline": agent_timeline
         }
+        
+        save_trace_log("\n\n".join(request.sources), agent_timeline, action_chain, constraints, final_output, total_time)
+
+        return final_output
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -306,9 +351,10 @@ async def analyze_csv(request: AnalyzeCsvRequest):
             simulation, ret5, trace5 = simulation_agent.simulate(top_action)
             agent_timeline.append({"agent": "SimulationAgent", "time_ms": round((time.time() - t5) * 1000, 2), "retries": ret5, "reasoning_trace": trace5})
 
-        agent_timeline.append({"total_time_ms": round((time.time() - start_total) * 1000, 2)})
+        total_time = round((time.time() - start_total) * 1000, 2)
+        agent_timeline.append({"total_time_ms": total_time})
 
-        return {
+        final_output = {
             "system_autonomy_score": calculate_autonomy_score(agent_timeline),
             "temporal_analysis": temporal_analysis,
             "insights": insights,
@@ -318,6 +364,10 @@ async def analyze_csv(request: AnalyzeCsvRequest):
             "simulation": simulation,
             "agent_timeline": agent_timeline
         }
+        
+        save_trace_log(request.csv_data, agent_timeline, action_chain, constraints, final_output, total_time)
+
+        return final_output
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

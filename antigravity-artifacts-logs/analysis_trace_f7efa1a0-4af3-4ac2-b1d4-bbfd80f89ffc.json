@@ -1,0 +1,279 @@
+{
+  "timestamp": "2026-05-17T08:25:48.410187Z",
+  "input_text": "Pakistan's economy is showing strong recovery signs. GDP growth has reached 4.5% and inflation is coming under control. The State Bank reports positive indicators across all sectors.\n\nPakistan's economy is in severe crisis. GDP has contracted by 2% and inflation remains dangerously high at 28%. The State Bank warns of further deterioration in coming months.",
+  "agent_decisions": {
+    "ContradictionAgent": [
+      "Step 1: Ingesting multiple data sources",
+      "Step 2: Performing cross-document fact checking",
+      "Step 3: Resolving logical inconsistencies",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "IngestionAgent": [
+      "Step 1: Received raw text input",
+      "Step 2: Removed extra whitespace and formatting anomalies",
+      "Step 3: Sanitized text for downstream agents",
+      "Text ingestion complete."
+    ],
+    "InsightAgent": [
+      "Step 1: Received clean text",
+      "Step 2: Identifying key economic indicators and sectors",
+      "Step 3: Cross-referencing with Pakistan economic context",
+      "Step 4: Formulating risk score",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ActionAgent": [
+      "Step 1: Analyzing extracted economic insights",
+      "Step 2: Generating priority-based mitigation actions",
+      "Step 3: Assigning timelines and targets for execution",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ChainAgent": [
+      "Step 1: Receiving optimal action from ActionAgent",
+      "Step 2: Breaking down core objective into sequentially dependent tasks",
+      "Step 3: Emitting action chain schema",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ConstraintAgent": [
+      "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+      "Step 2: Assessing proposed action feasibility against limits",
+      "Step 3: Recommending constraint adjustments",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "SimulationAgent": [
+      "Step 1: Parsing top-priority action details",
+      "Step 2: Simulating demographic and economic impact",
+      "Step 3: Generating before/after states and communication drafts",
+      "Step 4: Finalizing system logs",
+      "Simulation completed autonomously."
+    ]
+  },
+  "action_chain": [
+    {
+      "step_number": 1,
+      "action": "Notify the Prime Minister and relevant ministries of the top action and its expected outcome",
+      "status": "completed",
+      "result": "Notification sent successfully"
+    },
+    {
+      "step_number": 2,
+      "action": "Prepare a detailed plan for the 10% reduction in non-essential government spending",
+      "status": "executing",
+      "result": "Currently drafting the plan"
+    },
+    {
+      "step_number": 3,
+      "action": "Identify and prioritize areas for reduction in non-essential government spending",
+      "status": "pending",
+      "result": "Awaiting input from relevant ministries"
+    },
+    {
+      "step_number": 4,
+      "action": "Implement the 10% reduction in non-essential government spending and allocate resources for critical sectors",
+      "status": "pending",
+      "result": "Awaiting approval from the Prime Minister"
+    },
+    {
+      "step_number": 5,
+      "action": "Monitor and evaluate the impact of the top action on the economy and the population",
+      "status": "pending",
+      "result": "Awaiting data and feedback"
+    }
+  ],
+  "constraint_check": {
+    "feasible": false,
+    "reason": "Implementing a 10% reduction in non-essential government spending requires a detailed analysis of the current budget, identification of non-essential spending, and a plan for its reduction. This process cannot be completed within the given time limit of 48 hours. Additionally, the budget limit of PKR 1 million is insufficient to cover the costs associated with implementing such a significant policy change, especially considering the urgency level of HIGH.",
+    "adjustments_needed": "More time (at least several days to a week), a larger budget, and a more detailed plan for implementation"
+  },
+  "final_output": {
+    "system_autonomy_score": 100,
+    "contradiction_analysis": {
+      "contradiction_found": true,
+      "conflicting_claims": [
+        "GDP growth has reached 4.5%",
+        "GDP has contracted by 2%"
+      ],
+      "resolution": "The two texts present conflicting information about the state of Pakistan's economy, specifically regarding GDP growth and inflation rates."
+    },
+    "insights": {
+      "event": "Pakistan's economy in severe crisis",
+      "sectors": [
+        "all sectors"
+      ],
+      "risk_score": 9,
+      "impact_summary": "Pakistan's economy is in severe crisis, GDP has contracted by 2% and inflation remains high at 28%, posing significant risks to businesses and citizens.",
+      "why_it_matters": "This insight is critical right now due to the severe impact on the economy and the population.",
+      "affected_population": "entire population, businesses, and industries"
+    },
+    "actions": [
+      {
+        "priority": "HIGH",
+        "description": "Implement a 10% reduction in non-essential government spending to allocate resources for critical sectors such as healthcare and education.",
+        "target": "Prime Minister and relevant ministries",
+        "timeline": "Immediate",
+        "expected_outcome": "Reduce fiscal deficit by 2% and free up resources for critical sectors, improving the overall economic stability."
+      },
+      {
+        "priority": "MED",
+        "description": "Establish a task force to negotiate with the International Monetary Fund (IMF) for a revised bailout package with more favorable terms.",
+        "target": "Ministry of Finance and relevant stakeholders",
+        "timeline": "1 week",
+        "expected_outcome": "Secure a revised bailout package with more favorable terms, reducing the burden on the economy and citizens."
+      },
+      {
+        "priority": "LOW",
+        "description": "Launch a nationwide awareness campaign to educate citizens about the importance of saving and investing in the stock market.",
+        "target": "State Bank of Pakistan and relevant marketing agencies",
+        "timeline": "1 month",
+        "expected_outcome": "Increase citizen awareness and participation in the stock market, promoting long-term economic growth and stability."
+      }
+    ],
+    "action_chain": [
+      {
+        "step_number": 1,
+        "action": "Notify the Prime Minister and relevant ministries of the top action and its expected outcome",
+        "status": "completed",
+        "result": "Notification sent successfully"
+      },
+      {
+        "step_number": 2,
+        "action": "Prepare a detailed plan for the 10% reduction in non-essential government spending",
+        "status": "executing",
+        "result": "Currently drafting the plan"
+      },
+      {
+        "step_number": 3,
+        "action": "Identify and prioritize areas for reduction in non-essential government spending",
+        "status": "pending",
+        "result": "Awaiting input from relevant ministries"
+      },
+      {
+        "step_number": 4,
+        "action": "Implement the 10% reduction in non-essential government spending and allocate resources for critical sectors",
+        "status": "pending",
+        "result": "Awaiting approval from the Prime Minister"
+      },
+      {
+        "step_number": 5,
+        "action": "Monitor and evaluate the impact of the top action on the economy and the population",
+        "status": "pending",
+        "result": "Awaiting data and feedback"
+      }
+    ],
+    "constraints": {
+      "feasible": false,
+      "reason": "Implementing a 10% reduction in non-essential government spending requires a detailed analysis of the current budget, identification of non-essential spending, and a plan for its reduction. This process cannot be completed within the given time limit of 48 hours. Additionally, the budget limit of PKR 1 million is insufficient to cover the costs associated with implementing such a significant policy change, especially considering the urgency level of HIGH.",
+      "adjustments_needed": "More time (at least several days to a week), a larger budget, and a more detailed plan for implementation"
+    },
+    "simulation": {
+      "action_taken": "Implement a 10% reduction in non-essential government spending to allocate resources for critical sectors such as healthcare and education.",
+      "affected_count": 544177,
+      "before_state": "Status Quo with moderate inefficiency.",
+      "after_state": "Policy implemented; monitoring initial impact.",
+      "execution_time": "259ms",
+      "email_draft": "Subject: Urgent: Implementation of HIGH Priority Economic Action\n\nDear Stakeholders,\n\nPlease be advised that the following action has been initiated:\n\"Implement a 10% reduction in non-essential government spending to allocate resources for critical sectors such as healthcare and education.\"\n\nExpected Impact: ~544,177 individuals/entities.\nCurrent Phase: Policy implemented; monitoring initial impact.\n\nRegards,\nEconoSense AI System",
+      "notification_sent": 27,
+      "dashboard_updated": true,
+      "logs": [
+        "13:20:48 - System initialized simulation parameters.",
+        "13:22:48 - Risk assessed and validated.",
+        "13:24:48 - Notification dispatched to relevant authorities.",
+        "13:25:48 - Action logged in ledger."
+      ]
+    },
+    "agent_timeline": [
+      {
+        "agent": "ContradictionAgent",
+        "time_ms": 416.75,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Ingesting multiple data sources",
+          "Step 2: Performing cross-document fact checking",
+          "Step 3: Resolving logical inconsistencies",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "IngestionAgent",
+        "time_ms": 0.03,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received raw text input",
+          "Step 2: Removed extra whitespace and formatting anomalies",
+          "Step 3: Sanitized text for downstream agents",
+          "Text ingestion complete."
+        ]
+      },
+      {
+        "agent": "InsightAgent",
+        "time_ms": 291.39,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received clean text",
+          "Step 2: Identifying key economic indicators and sectors",
+          "Step 3: Cross-referencing with Pakistan economic context",
+          "Step 4: Formulating risk score",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "ActionAgent",
+        "time_ms": 797.43,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Analyzing extracted economic insights",
+          "Step 2: Generating priority-based mitigation actions",
+          "Step 3: Assigning timelines and targets for execution",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "ChainAgent",
+        "time_ms": 659.66,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Receiving optimal action from ActionAgent",
+          "Step 2: Breaking down core objective into sequentially dependent tasks",
+          "Step 3: Emitting action chain schema",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "ConstraintAgent",
+        "time_ms": 448.71,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+          "Step 2: Assessing proposed action feasibility against limits",
+          "Step 3: Recommending constraint adjustments",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "SimulationAgent",
+        "time_ms": 0.07,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Parsing top-priority action details",
+          "Step 2: Simulating demographic and economic impact",
+          "Step 3: Generating before/after states and communication drafts",
+          "Step 4: Finalizing system logs",
+          "Simulation completed autonomously."
+        ]
+      },
+      {
+        "total_time_ms": 2614.09
+      }
+    ]
+  },
+  "total_time_ms": 2614.09
+}
