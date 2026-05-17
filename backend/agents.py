@@ -392,3 +392,37 @@ Return ONLY a JSON object with no comments:
 Return ONLY the JSON. No comments, no explanation, no markdown.
 """
         return execute_with_retry(prompt, default, temperature=0.1, trace_steps=trace)
+
+
+class NoiseFilterAgent:
+    """Filters out irrelevant, duplicate, or low-credibility content before analysis."""
+    
+    def filter_content(self, text: str) -> Tuple[Dict[str, Any], int, List[str]]:
+        default = {
+            "is_relevant": True,
+            "confidence_score": 8,
+            "reason": "Defaulting to relevant due to API error."
+        }
+        trace = [
+            "Step 1: Analyzing content credibility and relevance",
+            "Step 2: Checking for duplicates or noise",
+            "Step 3: Calculating relevance score"
+        ]
+        if not client:
+            return default, 0, trace + ["Error: API key missing."]
+            
+        prompt = f"""
+You are an expert news filter and content moderator. Evaluate the following text to determine if it is a relevant, credible, and non-duplicate piece of economic news about Pakistan.
+
+Text: {text}
+
+Return ONLY a JSON object with no comments:
+{{
+  "is_relevant": true or false,
+  "confidence_score": 1-10 (integer),
+  "reason": "short explanation of why this is kept or filtered out"
+}}
+
+Return ONLY the JSON. No comments, no explanation, no markdown.
+"""
+        return execute_with_retry(prompt, default, temperature=0.1, trace_steps=trace)

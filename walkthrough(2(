@@ -1,0 +1,30 @@
+# AntigravityOrchestrator Implementation Walkthrough
+
+The backend has been successfully refactored to introduce the `AntigravityOrchestrator` as the central coordinator for the 8-agent AI pipeline. 
+
+## Key Changes Made
+
+### 1. `AntigravityOrchestrator` Class
+A new class was introduced in [main.py](file:///d:/humaa/EconoSense-pk/backend/main.py) to encapsulate the entire agent pipeline workflow.
+- **Agent Registration**: The `__init__` method now pre-spawns all 8 agents (`IngestionAgent`, `InsightAgent`, `ActionAgent`, `SimulationAgent`, `ChainAgent`, `ConstraintAgent`, `ContradictionAgent`, `TemporalAgent`).
+- **Dynamic Task Assignment**: `assign_task()` handles executing agent methods, calculating execution time, extracting reasoning traces, and systematically logging each event.
+- **Orchestration Tracing**: Every orchestrator action, such as spawning an agent or assigning a task, is logged with precise timestamps (e.g. `"Antigravity Orchestrator spawned InsightAgent"`).
+
+### 2. Centralized `coordinate_pipeline()`
+All scattered logic from the individual endpoints was merged into `coordinate_pipeline()`.
+- It dynamically adapts its initial phase based on the `pipeline_type` (e.g., triggering `URLFetcher` for `/analyze-url` or `TemporalAgent` for `/analyze-csv`).
+- Following any type-specific pre-processing, it triggers the standard 6-agent core pipeline seamlessly.
+
+### 3. Endpoint Refactoring
+The endpoints (`/analyze`, `/analyze-url`, `/analyze-multi`, `/analyze-csv`) have been stripped of duplicate logic. They now consist of concise, async calls to the orchestrator:
+```python
+@app.post("/analyze")
+async def analyze_news(request: AnalyzeRequest):
+    return await orchestrator.coordinate_pipeline(request.news_text, "text")
+```
+
+### 4. Enhanced Trace Logs
+`save_trace_log` was integrated into the orchestrator. It extracts the new orchestrator decision logs from the `agent_timeline` and includes them under `orchestrator_decisions` in the JSON trace files saved to `antigravity-artifacts-logs`.
+
+> [!NOTE]
+> The updated JSON traces will now explicitly show the "orchestrator's thought process" alongside the reasoning traces from individual agents, giving you a full timeline from start to finish.
