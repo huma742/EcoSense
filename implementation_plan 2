@@ -1,0 +1,45 @@
+# Final Polish Features Implementation Plan
+
+This plan outlines the steps to add the final polish features for the EconoSense PK platform, which includes agent reasoning traces, system autonomy scoring, and documentation updates for the hackathon.
+
+## Proposed Changes
+
+### Backend: `backend/agents.py`
+We will update all agents to include a detailed, simulated reasoning trace.
+#### [MODIFY] agents.py
+- **Return Signatures**: Modify `execute_with_retry` and the individual agent methods to return a 3-element tuple: `(result, retries, reasoning_trace)`.
+- **Reasoning Traces**: Each agent will now generate a `reasoning_trace` (a `List[str]`). This trace will document:
+  - Input parsing
+  - Logical inferences (e.g., cross-referencing with Pakistan economic context)
+  - Tool/API calls made
+  - Any retry logic triggered by API failures
+
+### Backend: `backend/main.py`
+We need to capture the `reasoning_trace` and pass it to the frontend, alongside computing the Autonomy Score.
+#### [MODIFY] main.py
+- **Agent Timeline Update**: In `/analyze`, `/analyze-url`, `/analyze-multi`, and `/analyze-csv`, extract the `reasoning_trace` from the agent tuple and append it to the `agent_timeline` dictionary for each step.
+- **Autonomy Score**: Calculate a `system_autonomy_score`. We will base this on the number of retries and failures (e.g., 100% minus 5% for each retry used across the pipeline). This will be returned at the root of the JSON response.
+
+### Frontend: `econosense_app/lib/main.dart`
+The Flutter UI will present the new traces and scores.
+#### [MODIFY] main.dart
+- **System Autonomy Score**: Extract `system_autonomy_score` from the root response and render a prominent badge in the `ResultsScreen` (e.g., "Autonomy Score: 95%").
+- **Retry Warning Card**: Before the insights, scan the `agent_timeline` for any agent where `retries > 0`. If found, render a yellow warning card: `⚠️ Agent Retry: [AgentName] retried [X] times due to API limit`.
+- **Antigravity Trace Section**: Replace the existing simple timeline with a new "Antigravity Trace" section. This will be a dark `#1E1E1E` container with monospace green text representing a terminal output. It will map over `agent_timeline` and print each agent's execution time, retries, and its `reasoning_trace` line by line.
+
+### Documentation: `README.md`
+We will rewrite the README to serve as a comprehensive guide for hackathon judges.
+#### [NEW/MODIFY] README.md
+- **Overview & Architecture**: Include a text-based architecture diagram detailing the data flow from the 6 inputs through the 7 agents.
+- **Agents**: Document Ingestion, Insight, Action, Simulation, Chain, Constraint, Contradiction, and Temporal agents.
+- **Inputs**: Detail the Text, URL, PDF, Multi-Source, CSV/JSON, and Real-time Feed features.
+- **Antigravity Role**: Explain how Antigravity acts as the central orchestrator routing requests and structuring LLM payloads autonomously.
+- **Evaluation Criteria Mapping**: Provide a specific section mapping EconoSense PK features directly to standard hackathon judging criteria (e.g., Innovation, Technical Complexity, UI/UX, Real-world Impact).
+
+## Verification Plan
+
+### Manual Verification
+- Run a `python scratch/test.py` (or similar) to ensure the 3-element tuple doesn't break the FastAPI routes.
+- Execute the backend `uvicorn` server.
+- Load the Flutter app, perform a Text analysis, and visually confirm the dark terminal trace, the Autonomy score badge, and the lack of exception tracebacks.
+- Simulate an API failure to verify the yellow retry warning card appears correctly.

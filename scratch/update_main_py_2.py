@@ -1,4 +1,8 @@
-import time
+import os
+
+file_path = r"d:\humaa\EconoSense-pk\backend\main.py"
+
+new_main_code = """import time
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -199,7 +203,7 @@ async def analyze_multi(request: AnalyzeMultiRequest):
         agent_timeline.append({"agent": "ContradictionAgent", "time_ms": round((time.time() - t_conflict) * 1000, 2), "retries": ret_c, "reasoning_trace": trace_c})
         
         # Combine texts for downstream agents
-        combined_text = "\n\n".join(request.sources)
+        combined_text = "\\n\\n".join(request.sources)
         
         # 1. IngestionAgent -> clean the text
         t0 = time.time()
@@ -326,3 +330,9 @@ async def analyze_csv(request: AnalyzeCsvRequest):
 if __name__ == "__main__":
     # Run on port 8000
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+"""
+
+with open(file_path, 'w', encoding='utf-8') as f:
+    f.write(new_main_code)
+
+print("Updated main.py successfully.")
