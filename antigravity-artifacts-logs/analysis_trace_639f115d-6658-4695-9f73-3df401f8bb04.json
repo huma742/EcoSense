@@ -1,0 +1,247 @@
+{
+  "timestamp": "2026-05-17T09:41:45.342012Z",
+  "input_text": "https://www.dawn.com/news/1916832",
+  "agent_decisions": {
+    "URLFetcher": [
+      "Extracted text from URL",
+      "Cleaned HTML"
+    ],
+    "IngestionAgent": [
+      "Step 1: Received raw text input",
+      "Step 2: Removed extra whitespace and formatting anomalies",
+      "Step 3: Sanitized text for downstream agents",
+      "Text ingestion complete."
+    ],
+    "InsightAgent": [
+      "Step 1: Received clean text",
+      "Step 2: Identifying key economic indicators and sectors",
+      "Step 3: Cross-referencing with Pakistan economic context",
+      "Step 4: Formulating risk score",
+      "Error: API key missing."
+    ],
+    "ActionAgent": [
+      "Step 1: Analyzing extracted economic insights",
+      "Step 2: Generating priority-based mitigation actions",
+      "Step 3: Assigning timelines and targets for execution",
+      "Error: API key missing."
+    ],
+    "ChainAgent": [
+      "Step 1: Receiving optimal action from ActionAgent",
+      "Step 2: Breaking down core objective into sequentially dependent tasks",
+      "Step 3: Emitting action chain schema",
+      "Error: API key missing."
+    ],
+    "ConstraintAgent": [
+      "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+      "Step 2: Assessing proposed action feasibility against limits",
+      "Step 3: Recommending constraint adjustments",
+      "Error: API key missing."
+    ],
+    "SimulationAgent": [
+      "Step 1: Parsing top-priority action details",
+      "Step 2: Simulating demographic and economic impact",
+      "Step 3: Generating before/after states and communication drafts",
+      "Step 4: Finalizing system logs",
+      "Simulation completed autonomously."
+    ]
+  },
+  "action_chain": [
+    {
+      "step_number": 1,
+      "action": "Diagnose the issue based on the insight",
+      "status": "completed",
+      "result": "Diagnosis complete"
+    },
+    {
+      "step_number": 2,
+      "action": "Notify relevant stakeholders",
+      "status": "executing",
+      "result": "Notifications sent to 50% of stakeholders"
+    },
+    {
+      "step_number": 3,
+      "action": "Launch mitigation plan",
+      "status": "pending",
+      "result": "Awaiting resource allocation"
+    },
+    {
+      "step_number": 4,
+      "action": "Schedule monitoring and follow-up",
+      "status": "pending",
+      "result": "Scheduled for next week"
+    }
+  ],
+  "constraint_check": {
+    "feasible": true,
+    "reason": "Defaulting to feasible due to API error.",
+    "adjustments_needed": "None"
+  },
+  "final_output": {
+    "system_autonomy_score": 100,
+    "insights": {
+      "event": "Economic policy update detected",
+      "sectors": [
+        "Banking",
+        "Trade",
+        "SMEs"
+      ],
+      "risk_score": 7,
+      "impact_summary": "This policy change affects key economic sectors in Pakistan with moderate to high impact on businesses and consumers.",
+      "why_it_matters": "N/A",
+      "affected_population": "N/A"
+    },
+    "actions": [
+      {
+        "priority": "HIGH",
+        "description": "Notify financial institutions and update lending rate guidelines immediately",
+        "target": "State Bank",
+        "timeline": "immediate",
+        "expected_outcome": "Stabilization"
+      },
+      {
+        "priority": "MED",
+        "description": "Alert SME sector stakeholders and provide adjustment timeline",
+        "target": "SMEs",
+        "timeline": "1 week",
+        "expected_outcome": "Preparation"
+      },
+      {
+        "priority": "LOW",
+        "description": "Monitor consumer price index weekly for next 30 days",
+        "target": "Statistics Bureau",
+        "timeline": "1 month",
+        "expected_outcome": "Data gathering"
+      }
+    ],
+    "action_chain": [
+      {
+        "step_number": 1,
+        "action": "Diagnose the issue based on the insight",
+        "status": "completed",
+        "result": "Diagnosis complete"
+      },
+      {
+        "step_number": 2,
+        "action": "Notify relevant stakeholders",
+        "status": "executing",
+        "result": "Notifications sent to 50% of stakeholders"
+      },
+      {
+        "step_number": 3,
+        "action": "Launch mitigation plan",
+        "status": "pending",
+        "result": "Awaiting resource allocation"
+      },
+      {
+        "step_number": 4,
+        "action": "Schedule monitoring and follow-up",
+        "status": "pending",
+        "result": "Scheduled for next week"
+      }
+    ],
+    "constraints": {
+      "feasible": true,
+      "reason": "Defaulting to feasible due to API error.",
+      "adjustments_needed": "None"
+    },
+    "simulation": {
+      "action_taken": "Notify financial institutions and update lending rate guidelines immediately",
+      "affected_count": 521882,
+      "before_state": "High inflation pressure; volatile lending.",
+      "after_state": "Inflation stabilized; credit flow restricted.",
+      "execution_time": "203ms",
+      "email_draft": "Subject: Urgent: Implementation of HIGH Priority Economic Action\n\nDear Stakeholders,\n\nPlease be advised that the following action has been initiated:\n\"Notify financial institutions and update lending rate guidelines immediately\"\n\nExpected Impact: ~521,882 individuals/entities.\nCurrent Phase: Inflation stabilized; credit flow restricted.\n\nRegards,\nEconoSense AI System",
+      "notification_sent": 479,
+      "dashboard_updated": true,
+      "logs": [
+        "14:36:45 - System initialized simulation parameters.",
+        "14:38:45 - Risk assessed and validated.",
+        "14:40:45 - Notification dispatched to relevant authorities.",
+        "14:41:45 - Action logged in ledger."
+      ]
+    },
+    "agent_timeline": [
+      {
+        "agent": "URLFetcher",
+        "time_ms": 1032.99,
+        "retries": 0,
+        "reasoning_trace": [
+          "Extracted text from URL",
+          "Cleaned HTML"
+        ]
+      },
+      {
+        "agent": "IngestionAgent",
+        "time_ms": 0.82,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received raw text input",
+          "Step 2: Removed extra whitespace and formatting anomalies",
+          "Step 3: Sanitized text for downstream agents",
+          "Text ingestion complete."
+        ]
+      },
+      {
+        "agent": "InsightAgent",
+        "time_ms": 0.0,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received clean text",
+          "Step 2: Identifying key economic indicators and sectors",
+          "Step 3: Cross-referencing with Pakistan economic context",
+          "Step 4: Formulating risk score",
+          "Error: API key missing."
+        ]
+      },
+      {
+        "agent": "ActionAgent",
+        "time_ms": 0.0,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Analyzing extracted economic insights",
+          "Step 2: Generating priority-based mitigation actions",
+          "Step 3: Assigning timelines and targets for execution",
+          "Error: API key missing."
+        ]
+      },
+      {
+        "agent": "ChainAgent",
+        "time_ms": 0.0,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Receiving optimal action from ActionAgent",
+          "Step 2: Breaking down core objective into sequentially dependent tasks",
+          "Step 3: Emitting action chain schema",
+          "Error: API key missing."
+        ]
+      },
+      {
+        "agent": "ConstraintAgent",
+        "time_ms": 0.0,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+          "Step 2: Assessing proposed action feasibility against limits",
+          "Step 3: Recommending constraint adjustments",
+          "Error: API key missing."
+        ]
+      },
+      {
+        "agent": "SimulationAgent",
+        "time_ms": 0.06,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Parsing top-priority action details",
+          "Step 2: Simulating demographic and economic impact",
+          "Step 3: Generating before/after states and communication drafts",
+          "Step 4: Finalizing system logs",
+          "Simulation completed autonomously."
+        ]
+      },
+      {
+        "total_time_ms": 1033.89
+      }
+    ]
+  },
+  "total_time_ms": 1033.89
+}

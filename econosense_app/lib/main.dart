@@ -173,9 +173,31 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _obscureText = true;
+  
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _slideAnimation = Tween<Offset>(begin: const Offset(0.0, 0.2), end: Offset.zero).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOutQuart));
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   Future<void> _login() async {
     final prefs = await SharedPreferences.getInstance();
@@ -190,33 +212,161 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Widget _buildBackground() {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF1B5E20), Color(0xFF00695C), Color(0xFF1A237E)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
+        Positioned(
+          top: -50,
+          left: -50,
+          child: Container(
+            width: 200, height: 200,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
+          )
+        ),
+        Positioned(
+          top: 200,
+          right: -80,
+          child: Container(
+            width: 300, height: 300,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
+          )
+        ),
+        Positioned(
+          bottom: -100,
+          left: 50,
+          child: Container(
+            width: 250, height: 250,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
+          )
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Icon(Icons.analytics, size: 80, color: Color(0xFF2E7D32)),
-              const SizedBox(height: 24),
-              const Text('Welcome Back', textAlign: TextAlign.center, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 32),
-              TextField(controller: _emailController, decoration: const InputDecoration(labelText: 'Email', prefixIcon: Icon(Icons.email))),
-              const SizedBox(height: 16),
-              TextField(controller: _passwordController, obscureText: true, decoration: const InputDecoration(labelText: 'Password', prefixIcon: Icon(Icons.lock))),
-              const SizedBox(height: 32),
-              ElevatedButton(onPressed: _login, child: const Text('Login', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
-              TextButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SignupScreen())),
-                child: const Text('Don\'t have an account? Sign Up', style: TextStyle(color: Color(0xFF2E7D32))),
-              )
-            ],
+      body: Stack(
+        children: [
+          _buildBackground(),
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+                child: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: SlideTransition(
+                    position: _slideAnimation,
+                    child: Container(
+                      padding: const EdgeInsets.all(28.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24.0),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black38, blurRadius: 15, offset: Offset(0, 8)),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.insert_chart_outlined, color: Color(0xFF1B5E20), size: 32),
+                              SizedBox(width: 8),
+                              Text('EconoSense PK', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20))),
+                            ],
+                          ),
+                          const SizedBox(height: 32),
+                          const Text('Login', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black)),
+                          const SizedBox(height: 8),
+                          const Text('Sign in to continue', style: TextStyle(fontSize: 16, color: Colors.grey)),
+                          const SizedBox(height: 32),
+                          
+                          TextField(
+                            controller: _emailController, 
+                            decoration: InputDecoration(
+                              hintText: 'Username',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              prefixIcon: const Icon(Icons.person, color: Colors.grey),
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                            )
+                          ),
+                          const SizedBox(height: 16),
+                          
+                          TextField(
+                            controller: _passwordController, 
+                            obscureText: _obscureText, 
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              prefixIcon: const Icon(Icons.lock, color: Colors.grey),
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureText = !_obscureText;
+                                  });
+                                },
+                              ),
+                            )
+                          ),
+                          const SizedBox(height: 32),
+                          
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(colors: [Color(0xFF1B5E20), Color(0xFF00695C)]),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 3))],
+                            ),
+                            child: ElevatedButton(
+                              onPressed: _login, 
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                                padding: const EdgeInsets.symmetric(vertical: 18),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                              ),
+                              child: const Text('LOGIN', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          Center(
+                            child: GestureDetector(
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SignupScreen())),
+                              child: const Text("Don't have an account? Sign up", style: TextStyle(color: Color(0xFF1B5E20), fontSize: 14, fontWeight: FontWeight.bold)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -228,10 +378,34 @@ class SignupScreen extends StatefulWidget {
   State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _SignupScreenState extends State<SignupScreen> with SingleTickerProviderStateMixin {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _obscureText = true;
+  
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(duration: const Duration(milliseconds: 800), vsync: this);
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    // slide from right
+    _slideAnimation = Tween<Offset>(begin: const Offset(0.2, 0.0), end: Offset.zero).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOutQuart));
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   Future<void> _signup() async {
     final prefs = await SharedPreferences.getInstance();
@@ -243,30 +417,173 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
+  Widget _buildBackground() {
+    return Stack(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF1B5E20), Color(0xFF00695C), Color(0xFF1A237E)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
+        Positioned(
+          top: -50,
+          left: -50,
+          child: Container(
+            width: 200, height: 200,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
+          )
+        ),
+        Positioned(
+          top: 200,
+          right: -80,
+          child: Container(
+            width: 300, height: 300,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
+          )
+        ),
+        Positioned(
+          bottom: -100,
+          left: 50,
+          child: Container(
+            width: 250, height: 250,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white.withOpacity(0.1)),
+          )
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white, elevation: 0, leading: const BackButton(color: Color(0xFF2E7D32))),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text('Create Account', textAlign: TextAlign.center, style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-              const SizedBox(height: 32),
-              TextField(controller: _nameController, decoration: const InputDecoration(labelText: 'Full Name', prefixIcon: Icon(Icons.person))),
-              const SizedBox(height: 16),
-              TextField(controller: _emailController, decoration: const InputDecoration(labelText: 'Email', prefixIcon: Icon(Icons.email))),
-              const SizedBox(height: 16),
-              TextField(controller: _passwordController, obscureText: true, decoration: const InputDecoration(labelText: 'Password', prefixIcon: Icon(Icons.lock))),
-              const SizedBox(height: 32),
-              ElevatedButton(onPressed: _signup, child: const Text('Sign Up', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
-            ],
+      body: Stack(
+        children: [
+          _buildBackground(),
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 24.0),
+                child: FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: SlideTransition(
+                    position: _slideAnimation,
+                    child: Container(
+                      padding: const EdgeInsets.all(28.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24.0),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black38, blurRadius: 15, offset: Offset(0, 8)),
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.insert_chart_outlined, color: Color(0xFF1B5E20), size: 32),
+                              SizedBox(width: 8),
+                              Text('EconoSense PK', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20))),
+                            ],
+                          ),
+                          const SizedBox(height: 32),
+                          const Text('Create Account', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.black)),
+                          const SizedBox(height: 8),
+                          GestureDetector(
+                            onTap: () => Navigator.pop(context),
+                            child: const Text('Already registered? Log in here', style: TextStyle(fontSize: 14, color: Color(0xFF1B5E20), fontWeight: FontWeight.bold)),
+                          ),
+                          const SizedBox(height: 32),
+                          
+                          TextField(
+                            controller: _nameController, 
+                            decoration: InputDecoration(
+                              hintText: 'Name',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              prefixIcon: const Icon(Icons.person, color: Colors.grey),
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                            )
+                          ),
+                          const SizedBox(height: 16),
+
+                          TextField(
+                            controller: _emailController, 
+                            decoration: InputDecoration(
+                              hintText: 'Email',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              prefixIcon: const Icon(Icons.email, color: Colors.grey),
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                            )
+                          ),
+                          const SizedBox(height: 16),
+                          
+                          TextField(
+                            controller: _passwordController, 
+                            obscureText: _obscureText, 
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              prefixIcon: const Icon(Icons.lock, color: Colors.grey),
+                              filled: true,
+                              fillColor: Colors.grey[200],
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility, color: Colors.grey),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureText = !_obscureText;
+                                  });
+                                },
+                              ),
+                            )
+                          ),
+                          const SizedBox(height: 32),
+                          
+                          Container(
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(colors: [Color(0xFF1B5E20), Color(0xFF00695C)]),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 3))],
+                            ),
+                            child: ElevatedButton(
+                              onPressed: _signup, 
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                shadowColor: Colors.transparent,
+                                padding: const EdgeInsets.symmetric(vertical: 18),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                              ),
+                              child: const Text('REGISTER', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -342,8 +659,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
           setState(() => _currentIndex = index);
           if (index == 0) _loadUser();
         },
-        selectedItemColor: const Color(0xFF2E7D32),
+        selectedItemColor: const Color(0xFF1B5E20),
         unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
+        elevation: 10,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.dashboard), label: 'Dashboard'),
           BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'Analyze'),
@@ -361,59 +680,87 @@ class DashboardHome extends StatelessWidget {
 
   const DashboardHome({super.key, required this.userName, required this.onLogout, this.recentActions = const []});
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-        actions: [
-          IconButton(icon: const Icon(Icons.logout), onPressed: onLogout),
-        ],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Welcome back, $userName!', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 24),
-            Row(
+      backgroundColor: Colors.grey[50],
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(top: 60, left: 24, right: 24, bottom: 32),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF1B5E20), Color(0xFF00695C)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: _buildStatCard('Actions Executed', '${recentActions.length}', Icons.insert_chart, Colors.blue)),
-                const SizedBox(width: 16),
-                Expanded(child: _buildStatCard('Avg Risk', (recentActions.isEmpty ? 0.0 : recentActions.fold(0.0, (sum, a) => sum + (a['risk_score'] as double? ?? 0.0)) / recentActions.length).toStringAsFixed(1), Icons.warning, Colors.orange)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Dashboard', style: TextStyle(color: Colors.white70, fontSize: 16)),
+                    IconButton(icon: const Icon(Icons.logout, color: Colors.white), onPressed: onLogout),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text('Welcome back, $userName!', style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
               ],
             ),
-            const SizedBox(height: 32),
-            const Text('Recent Executed Actions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            if (recentActions.isEmpty)
-              _buildRecentCard('No actions executed yet', 'Run analysis and execute an action', 'Now')
-            else
-              ...recentActions.map((action) => _buildRecentCard(action['title'] ?? '', action['subtitle'] ?? '', action['time'] ?? '', action['priority'] ?? 'LOW')).toList(),
-          ],
-        ),
+          ),
+          
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(child: _buildStatCard('Actions Executed', '${recentActions.length}', Icons.insert_chart, const [Color(0xFF43A047), Color(0xFF1B5E20)])),
+                      const SizedBox(width: 16),
+                      Expanded(child: _buildStatCard('Avg Risk', (recentActions.isEmpty ? 0.0 : recentActions.fold(0.0, (sum, a) => sum + (a['risk_score'] as double? ?? 0.0)) / recentActions.length).toStringAsFixed(1), Icons.warning, const [Color(0xFFFFB74D), Color(0xFFF57C00)])),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  const Text('Recent Executed Actions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
+                  const SizedBox(height: 16),
+                  if (recentActions.isEmpty)
+                    _buildRecentCard('No actions executed yet', 'Run analysis and execute an action', 'Now')
+                  else
+                    ...recentActions.map((action) => _buildRecentCard(action['title'] ?? '', action['subtitle'] ?? '', action['time'] ?? '', action['priority'] ?? 'LOW')).toList(),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
+  Widget _buildStatCard(String title, String value, IconData icon, List<Color> gradientColors) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10)],
+        gradient: LinearGradient(colors: gradientColors, begin: Alignment.topLeft, end: Alignment.bottomRight),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [BoxShadow(color: gradientColors.last.withOpacity(0.4), blurRadius: 10, offset: const Offset(0, 4))],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: color, size: 28),
-          const SizedBox(height: 12),
-          Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          Text(title, style: TextStyle(color: Colors.grey[600], fontSize: 14)),
+          Icon(icon, color: Colors.white, size: 32),
+          const SizedBox(height: 16),
+          Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
+          const SizedBox(height: 4),
+          Text(title, style: const TextStyle(color: Colors.white70, fontSize: 14)),
         ],
       ),
     );
@@ -428,42 +775,53 @@ class DashboardHome extends StatelessWidget {
       default: priorityColor = Colors.grey;
     }
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ListTile(
-        contentPadding: const EdgeInsets.all(16),
-        leading: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: Colors.green.shade50, shape: BoxShape.circle),
-          child: const Icon(Icons.check_circle_outline, color: Color(0xFF2E7D32)),
-        ),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(left: BorderSide(color: Color(0xFF1B5E20), width: 6)),
+          ),
+          child: ListTile(
+            contentPadding: const EdgeInsets.all(16),
+            leading: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(color: Colors.green.shade50, shape: BoxShape.circle),
+              child: const Icon(Icons.check_circle, color: Color(0xFF1B5E20)),
+            ),
+            title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16), maxLines: 2, overflow: TextOverflow.ellipsis),
+            subtitle: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.grey[600])),
+                  ),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: priorityColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      priority,
+                      style: TextStyle(color: priorityColor, fontWeight: FontWeight.bold, fontSize: 10),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 8),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: priorityColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  priority,
-                  style: TextStyle(color: priorityColor, fontWeight: FontWeight.bold, fontSize: 10),
-                ),
-              ),
-            ],
+            ),
+            trailing: Text(time, style: const TextStyle(fontSize: 12, color: Colors.grey, fontWeight: FontWeight.bold)),
           ),
         ),
-        trailing: Text(time, style: const TextStyle(fontSize: 12, color: Colors.grey)),
       ),
     );
   }
@@ -499,22 +857,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        elevation: 0,
-      ),
+      backgroundColor: Colors.grey[50],
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Header Section
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.only(bottom: 32, top: 16),
+              padding: const EdgeInsets.only(top: 60, bottom: 40),
               decoration: const BoxDecoration(
-                color: Color(0xFF2E7D32),
+                gradient: LinearGradient(
+                  colors: [Color(0xFF1B5E20), Color(0xFF00695C)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+                  bottomLeft: Radius.circular(40),
+                  bottomRight: Radius.circular(40),
                 ),
               ),
               child: Column(
@@ -524,7 +882,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     backgroundColor: Colors.white,
                     child: Text(
                       _getInitials(widget.userName),
-                      style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Color(0xFF2E7D32)),
+                      style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Color(0xFF1B5E20)),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -541,81 +899,85 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             
-            // Stats Row
             Transform.translate(
               offset: const Offset(0, -20),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   children: [
                     Expanded(child: _buildStatCard('Analyses', '${widget.recentActions.length}', Icons.insert_chart, const Color(0xFF2E7D32))),
                     const SizedBox(width: 12),
                     Expanded(child: _buildStatCard('Avg Risk', (widget.recentActions.isEmpty ? 0.0 : widget.recentActions.fold(0.0, (sum, a) => sum + (a['risk_score'] as double? ?? 0.0)) / widget.recentActions.length).toStringAsFixed(1), Icons.warning, const Color(0xFFF57C00))),
                     const SizedBox(width: 12),
-                    Expanded(child: _buildStatCard('Active Days', '3d', Icons.calendar_today, const Color(0xFF1565C0))),
+                    Expanded(child: _buildStatCard('Active', '3d', Icons.calendar_today, const Color(0xFF1565C0))),
                   ],
                 ),
               ),
             ),
 
-            // Settings Sections
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Settings', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
-                  const SizedBox(height: 12),
-                  Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  const SizedBox(height: 16),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))],
+                    ),
                     child: Column(
                       children: [
                         ListTile(
-                          leading: const Icon(Icons.person_outline, color: Color(0xFF2E7D32)),
-                          title: const Text('Account Settings'),
-                          trailing: const Icon(Icons.chevron_right),
+                          leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.person_outline, color: Color(0xFF1B5E20))),
+                          title: const Text('Account Settings', style: TextStyle(fontWeight: FontWeight.w600)),
+                          trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                           onTap: () {},
                         ),
-                        const Divider(height: 1),
+                        Divider(height: 1, color: Colors.grey[200]),
                         SwitchListTile(
-                          secondary: const Icon(Icons.notifications_outlined, color: Color(0xFF2E7D32)),
-                          title: const Text('Notifications'),
+                          secondary: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.notifications_outlined, color: Color(0xFF1B5E20))),
+                          title: const Text('Notifications', style: TextStyle(fontWeight: FontWeight.w600)),
                           value: _notificationsEnabled,
-                          activeColor: const Color(0xFF2E7D32),
+                          activeColor: const Color(0xFF1B5E20),
                           onChanged: (val) => setState(() => _notificationsEnabled = val),
                         ),
-                        const Divider(height: 1),
+                        Divider(height: 1, color: Colors.grey[200]),
                         SwitchListTile(
-                          secondary: const Icon(Icons.dark_mode_outlined, color: Color(0xFF2E7D32)),
-                          title: const Text('Dark Mode'),
+                          secondary: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.dark_mode_outlined, color: Color(0xFF1B5E20))),
+                          title: const Text('Dark Mode', style: TextStyle(fontWeight: FontWeight.w600)),
                           value: _darkModeEnabled,
-                          activeColor: const Color(0xFF2E7D32),
+                          activeColor: const Color(0xFF1B5E20),
                           onChanged: (val) => setState(() => _darkModeEnabled = val),
                         ),
                       ],
                     ),
                   ),
 
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 32),
                   const Text('More', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
-                  const SizedBox(height: 12),
-                  Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  const SizedBox(height: 16),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))],
+                    ),
                     child: Column(
                       children: [
                         ListTile(
-                          leading: const Icon(Icons.info_outline, color: Color(0xFF2E7D32)),
-                          title: const Text('About App'),
-                          trailing: const Text('v1.0.0', style: TextStyle(color: Colors.grey)),
+                          leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.info_outline, color: Color(0xFF1B5E20))),
+                          title: const Text('About App', style: TextStyle(fontWeight: FontWeight.w600)),
+                          trailing: const Text('v1.0.0', style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
                           onTap: () {},
                         ),
-                        const Divider(height: 1),
+                        Divider(height: 1, color: Colors.grey[200]),
                         ListTile(
-                          leading: const Icon(Icons.privacy_tip_outlined, color: Color(0xFF2E7D32)),
-                          title: const Text('Privacy Policy'),
-                          trailing: const Icon(Icons.chevron_right),
+                          leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: Colors.green.shade50, borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.privacy_tip_outlined, color: Color(0xFF1B5E20))),
+                          title: const Text('Privacy Policy', style: TextStyle(fontWeight: FontWeight.w600)),
+                          trailing: const Icon(Icons.chevron_right, color: Colors.grey),
                           onTap: () {},
                         ),
                       ],
@@ -630,9 +992,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         backgroundColor: Colors.red[50],
                         foregroundColor: Colors.red,
                         elevation: 0,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: const BorderSide(color: Colors.red),
+                          borderRadius: BorderRadius.circular(16),
                         ),
                       ),
                       icon: const Icon(Icons.logout),
@@ -640,7 +1002,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       onPressed: widget.onLogout,
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),
@@ -655,11 +1017,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
             color: color.withOpacity(0.4),
-            blurRadius: 12,
+            blurRadius: 15,
             offset: const Offset(0, 6),
           )
         ],
@@ -696,29 +1058,29 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
   final TextEditingController _source3Controller = TextEditingController();
   final TextEditingController _csvController = TextEditingController();
   Timer? _feedTimer;
-  List<String> _liveFeedItems = [
-    "State Bank of Pakistan announces new monetary policy, increasing interest rates by 100 bps.",
-    "FBR reports a 15% increase in tax revenue collection for the current fiscal quarter.",
-    "IMF approves the next tranche of the bailout package for Pakistan."
-  ];
+  int _feedIndex = 1;
   final List<String> _possibleHeadlines = [
-    "PSX gains 500 points amid positive investor sentiment.",
-    "Textile exports decline by 5% due to high energy costs.",
-    "Government announces new subsidy for the agriculture sector.",
-    "Foreign exchange reserves increase by \$50 million.",
-    "Inflation rate drops to 24% in the latest monthly report.",
-    "New trade agreement signed with regional partners."
+    "State Bank of Pakistan raises interest rates by 100bps to curb inflation",
+    "Pakistan's trade deficit narrows by 12% in Q1 2026 amid export growth",
+    "IMF approves \$1.2 billion tranche for Pakistan under bailout program",
+    "FBR reports 15% increase in tax revenue collection this fiscal quarter",
+    "Pakistan Stock Exchange gains 800 points as foreign investment rises"
   ];
+  List<String> _liveFeedItems = [];
   bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
+    _liveFeedItems = [_possibleHeadlines[0]];
     _tabController = TabController(length: 6, vsync: this);
     _feedTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
       if (mounted) {
         setState(() {
-          _liveFeedItems.insert(0, _possibleHeadlines[DateTime.now().second % _possibleHeadlines.length]);
+          if (!_liveFeedItems.contains(_possibleHeadlines[_feedIndex])) {
+            _liveFeedItems.insert(0, _possibleHeadlines[_feedIndex]);
+          }
+          _feedIndex = (_feedIndex + 1) % _possibleHeadlines.length;
           if (_liveFeedItems.length > 5) {
             _liveFeedItems.removeLast();
           }
@@ -857,41 +1219,81 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Analysis'),
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Colors.white,
-          indicatorWeight: 3,
-          labelColor: Colors.white,
-          unselectedLabelColor: Colors.green[200],
-          tabs: const [
-            Tab(icon: Icon(Icons.text_fields), text: 'Text'),
-            Tab(icon: Icon(Icons.link), text: 'URL'),
-            Tab(icon: Icon(Icons.picture_as_pdf), text: 'PDF'),
-            Tab(icon: Icon(Icons.library_books), text: 'Multi-Source'),
-            Tab(icon: Icon(Icons.table_chart), text: 'CSV/JSON'),
-            Tab(icon: Icon(Icons.feed), text: 'Feed'),
-          ],
-        ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
+      backgroundColor: Colors.grey[50],
+      body: Column(
         children: [
-          _buildTextTab(),
-          _buildUrlTab(),
-          _buildPdfTab(),
-          _buildMultiSourceTab(),
-          _buildCsvTab(),
-          _buildFeedTab(),
+          Container(
+            padding: const EdgeInsets.only(top: 50),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF1B5E20), Color(0xFF00695C)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  child: Text('Analyze', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: TabBar(
+                    controller: _tabController,
+                    indicatorColor: const Color(0xFF1B5E20),
+                    indicatorWeight: 4,
+                    labelColor: const Color(0xFF1B5E20),
+                    unselectedLabelColor: Colors.grey,
+                    isScrollable: true,
+                    tabs: const [
+                      Tab(text: 'Text'),
+                      Tab(text: 'URL'),
+                      Tab(text: 'PDF'),
+                      Tab(text: 'Multi'),
+                      Tab(text: 'CSV'),
+                      Tab(text: 'Feed'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: TabBarView(
+              controller: _tabController,
+              children: [
+                _buildTextTab(),
+                _buildUrlTab(),
+                _buildPdfTab(),
+                _buildMultiSourceTab(),
+                _buildCsvTab(),
+                _buildFeedTab(),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
+  InputDecoration _getInputDecoration(String hint, {IconData? prefixIcon}) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: const TextStyle(color: Colors.grey),
+      prefixIcon: prefixIcon != null ? Icon(prefixIcon, color: Colors.grey) : null,
+      filled: true,
+      fillColor: Colors.grey[200],
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+      contentPadding: const EdgeInsets.all(20),
+    );
+  }
+
   Widget _buildTextTab() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -901,12 +1303,10 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
               maxLines: null,
               expands: true,
               textAlignVertical: TextAlignVertical.top,
-              decoration: const InputDecoration(
-                hintText: 'Paste economic news text here...',
-              ),
+              decoration: _getInputDecoration('Paste economic news text here...'),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           _buildAnalyzeButton('Analyze Text', _analyzeText),
         ],
       ),
@@ -915,19 +1315,16 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
 
   Widget _buildUrlTab() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: 24),
-          const Text('Extract news from a URL', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const Text('Extract news from a URL', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
           const SizedBox(height: 16),
           TextField(
             controller: _urlController,
-            decoration: const InputDecoration(
-              hintText: 'https://example.com/news-article',
-              prefixIcon: Icon(Icons.link),
-            ),
+            decoration: _getInputDecoration('https://example.com/news-article', prefixIcon: Icons.link),
           ),
           const Spacer(),
           _buildAnalyzeButton('Fetch & Analyze URL', _analyzeUrl),
@@ -938,19 +1335,29 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
 
   Widget _buildPdfTab() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Icon(Icons.upload_file, size: 80, color: Colors.green[200]),
-          const SizedBox(height: 16),
+          const Spacer(),
+          Container(
+            padding: const EdgeInsets.all(40),
+            decoration: BoxDecoration(color: Colors.green.shade50, shape: BoxShape.circle),
+            child: const Icon(Icons.picture_as_pdf, size: 80, color: Color(0xFF1B5E20)),
+          ),
+          const SizedBox(height: 32),
           const Text(
             'Upload a PDF report for analysis',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 16),
+          const Text(
+            'We will extract the text and analyze economic indicators.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.grey),
+          ),
           const Spacer(),
           _buildAnalyzeButton('Select PDF & Analyze', _pickAndAnalyzePdf),
         ],
@@ -996,7 +1403,7 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
 
   Widget _buildMultiSourceTab() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -1005,19 +1412,18 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  const Text('Analyze multiple sources for contradictions', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black87)),
+                  const SizedBox(height: 24),
+                  TextField(controller: _source1Controller, maxLines: 4, decoration: _getInputDecoration('Source 1 text...')),
                   const SizedBox(height: 16),
-                  const Text('Analyze multiple sources for contradictions', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  TextField(controller: _source2Controller, maxLines: 4, decoration: _getInputDecoration('Source 2 text...')),
                   const SizedBox(height: 16),
-                  TextField(controller: _source1Controller, maxLines: 4, decoration: const InputDecoration(hintText: 'Source 1 text...')),
-                  const SizedBox(height: 12),
-                  TextField(controller: _source2Controller, maxLines: 4, decoration: const InputDecoration(hintText: 'Source 2 text...')),
-                  const SizedBox(height: 12),
-                  TextField(controller: _source3Controller, maxLines: 4, decoration: const InputDecoration(hintText: 'Source 3 text (optional)...')),
+                  TextField(controller: _source3Controller, maxLines: 4, decoration: _getInputDecoration('Source 3 text (optional)...')),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           _buildAnalyzeButton('Analyze Multiple Sources', _analyzeMulti),
         ],
       ),
@@ -1057,17 +1463,17 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
 
   Widget _buildCsvTab() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Enter CSV or JSON data:', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text('Enter CSV or JSON data:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black87)),
               TextButton.icon(
-                icon: const Icon(Icons.table_view, size: 16),
-                label: const Text('Sample CSV'),
+                icon: const Icon(Icons.table_view, size: 16, color: Color(0xFF1B5E20)),
+                label: const Text('Sample CSV', style: TextStyle(color: Color(0xFF1B5E20))),
                 onPressed: () {
                   _csvController.text = "date,sector,value\n2024-01,Banking,8.5\n2024-02,Banking,7.2\n2024-03,Banking,9.1";
                 },
@@ -1081,12 +1487,10 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
               maxLines: null,
               expands: true,
               textAlignVertical: TextAlignVertical.top,
-              decoration: const InputDecoration(
-                hintText: 'Paste CSV or JSON here...',
-              ),
+              decoration: _getInputDecoration('Paste CSV or JSON here...'),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           _buildAnalyzeButton('Analyze Data', _analyzeCsv),
         ],
       ),
@@ -1121,17 +1525,17 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
 
   Widget _buildFeedTab() {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text('Live Economy Feed', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              const Text('Live Economy Feed', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black87)),
               Row(
                 children: const [
-                  SizedBox(width: 12, height: 12, child: CircularProgressIndicator(strokeWidth: 2)),
+                  SizedBox(width: 12, height: 12, child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF1B5E20))),
                   SizedBox(width: 8),
                   Text('Updating...', style: TextStyle(color: Colors.grey, fontSize: 12)),
                 ],
@@ -1143,17 +1547,27 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
             child: ListView.builder(
               itemCount: _liveFeedItems.length,
               itemBuilder: (context, index) {
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 8),
+                return Container(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))],
+                  ),
                   child: ListTile(
-                    leading: const Icon(Icons.article, color: Colors.blue),
-                    title: Text(_liveFeedItems[index], style: const TextStyle(fontSize: 14)),
+                    contentPadding: const EdgeInsets.all(16),
+                    leading: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(color: Colors.green.shade50, shape: BoxShape.circle),
+                      child: const Icon(Icons.article, color: Color(0xFF1B5E20)),
+                    ),
+                    title: Text(_liveFeedItems[index], style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                   ),
                 );
               },
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 24),
           _buildAnalyzeButton('Analyze Feed', _analyzeFeed),
         ],
       ),
@@ -1161,11 +1575,24 @@ class _AnalyzeScreenState extends State<AnalyzeScreen> with SingleTickerProvider
   }
 
   Widget _buildAnalyzeButton(String label, VoidCallback onPressed) {
-    return ElevatedButton(
-      onPressed: _isLoading ? null : onPressed,
-      child: _isLoading
-          ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-          : Text(label, style: const TextStyle(fontSize: 18)),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(colors: [Color(0xFF1B5E20), Color(0xFF00695C)]),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 10, offset: Offset(0, 4))],
+      ),
+      child: ElevatedButton(
+        onPressed: _isLoading ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        ),
+        child: _isLoading
+            ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+            : Text(label, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+      ),
     );
   }
 }

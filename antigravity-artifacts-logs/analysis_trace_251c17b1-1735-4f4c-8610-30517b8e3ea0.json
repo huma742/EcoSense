@@ -1,0 +1,281 @@
+{
+  "timestamp": "2026-05-17T10:12:04.314110Z",
+  "input_text": "Pakistan economy is showing strong recovery. GDP growth reached 4.5% and inflation is coming under control at 15%.\n\nPakistan economy is in severe crisis. GDP contracted by 2% and inflation remains dangerously high at 35%. IMF warns of default risk.",
+  "agent_decisions": {
+    "ContradictionAgent": [
+      "Step 1: Ingesting multiple data sources",
+      "Step 2: Performing cross-document fact checking",
+      "Step 3: Resolving logical inconsistencies",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "IngestionAgent": [
+      "Step 1: Received raw text input",
+      "Step 2: Removed extra whitespace and formatting anomalies",
+      "Step 3: Sanitized text for downstream agents",
+      "Text ingestion complete."
+    ],
+    "InsightAgent": [
+      "Step 1: Received clean text",
+      "Step 2: Identifying key economic indicators and sectors",
+      "Step 3: Cross-referencing with Pakistan economic context",
+      "Step 4: Formulating risk score",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ActionAgent": [
+      "Step 1: Analyzing extracted economic insights",
+      "Step 2: Generating priority-based mitigation actions",
+      "Step 3: Assigning timelines and targets for execution",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ChainAgent": [
+      "Step 1: Receiving optimal action from ActionAgent",
+      "Step 2: Breaking down core objective into sequentially dependent tasks",
+      "Step 3: Emitting action chain schema",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ConstraintAgent": [
+      "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+      "Step 2: Assessing proposed action feasibility against limits",
+      "Step 3: Recommending constraint adjustments",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "SimulationAgent": [
+      "Step 1: Parsing top-priority action details",
+      "Step 2: Simulating demographic and economic impact",
+      "Step 3: Generating before/after states and communication drafts",
+      "Step 4: Finalizing system logs",
+      "Simulation completed autonomously."
+    ]
+  },
+  "action_chain": [
+    {
+      "step_number": 1,
+      "action": "Conduct a thorough analysis of the economic data to identify key drivers of inflation and areas for improvement.",
+      "status": "completed",
+      "result": "Key drivers of inflation and areas for improvement have been identified."
+    },
+    {
+      "step_number": 2,
+      "action": "Develop a proposal for the establishment of a Monetary Policy Committee to regulate interest rates and stabilize inflation.",
+      "status": "executing",
+      "result": "Proposal is currently being reviewed by stakeholders."
+    },
+    {
+      "step_number": 3,
+      "action": "Submit the proposal to the State Bank of Pakistan and secure approval for the establishment of the Monetary Policy Committee.",
+      "status": "pending",
+      "result": "Awaiting approval from the State Bank of Pakistan."
+    },
+    {
+      "step_number": 4,
+      "action": "Recruit and appoint members to the Monetary Policy Committee, ensuring a diverse range of expertise and experience.",
+      "status": "pending",
+      "result": "Awaiting recruitment and appointment of committee members."
+    },
+    {
+      "step_number": 5,
+      "action": "Establish clear goals, objectives, and decision-making processes for the Monetary Policy Committee to ensure effective regulation of interest rates and stabilization of inflation.",
+      "status": "pending",
+      "result": "Awaiting development of committee's goals, objectives, and decision-making processes."
+    }
+  ],
+  "constraint_check": {
+    "feasible": false,
+    "reason": "Establishing a Monetary Policy Committee requires significant resources, expertise, and time. Given the urgency level and time limit, it is not feasible to establish a committee from scratch within 48 hours. Additionally, the budget limit of PKR 1 million is insufficient to cover the costs associated with setting up a committee, including salaries, infrastructure, and other expenses.",
+    "adjustments_needed": "Significant increase in budget, extension of time limit, and prioritization of existing resources and expertise within the State Bank of Pakistan."
+  },
+  "final_output": {
+    "system_autonomy_score": 100,
+    "contradiction_analysis": {
+      "contradiction_found": true,
+      "conflicting_claims": [
+        "GDP growth reached 4.5%",
+        "GDP contracted by 2%"
+      ],
+      "resolution": "The two texts provide conflicting information about the state of the Pakistan economy, specifically regarding GDP growth."
+    },
+    "insights": {
+      "event": "Pakistan economy's contradictory performance",
+      "sectors": [
+        "Agriculture",
+        "Manufacturing",
+        "Services"
+      ],
+      "risk_score": 8,
+      "impact_summary": "Pakistan's economy is experiencing a mixed performance, with GDP growth rates and inflation rates showing contrasting trends. The recovery in GDP growth and decline in inflation are positive signs, but the high inflation rate and risk of default are major concerns. This matters because it can impact businesses' ability to invest and citizens' purchasing power.",
+      "why_it_matters": "This insight is critical because it highlights the need for policymakers to address the underlying issues driving inflation and ensure sustainable economic growth.",
+      "affected_population": "The general population, businesses, and investors are directly affected by the economic instability and inflation, which can impact their livelihoods and investments."
+    },
+    "actions": [
+      {
+        "priority": "HIGH",
+        "description": "Establish a Monetary Policy Committee to regulate interest rates and stabilize inflation.",
+        "target": "State Bank of Pakistan",
+        "timeline": "immediate",
+        "expected_outcome": "Reduced inflation rate and improved economic stability."
+      },
+      {
+        "priority": "MED",
+        "description": "Implement policies to boost agricultural productivity and reduce reliance on imports.",
+        "target": "Ministry of National Food Security and Research",
+        "timeline": "1 month",
+        "expected_outcome": "Increased agricultural output and reduced trade deficit."
+      },
+      {
+        "priority": "LOW",
+        "description": "Conduct a comprehensive review of the tax system to identify areas of inefficiency and recommend reforms.",
+        "target": "Federal Board of Revenue",
+        "timeline": "1 month",
+        "expected_outcome": "Improved tax collection and reduced tax evasion."
+      }
+    ],
+    "action_chain": [
+      {
+        "step_number": 1,
+        "action": "Conduct a thorough analysis of the economic data to identify key drivers of inflation and areas for improvement.",
+        "status": "completed",
+        "result": "Key drivers of inflation and areas for improvement have been identified."
+      },
+      {
+        "step_number": 2,
+        "action": "Develop a proposal for the establishment of a Monetary Policy Committee to regulate interest rates and stabilize inflation.",
+        "status": "executing",
+        "result": "Proposal is currently being reviewed by stakeholders."
+      },
+      {
+        "step_number": 3,
+        "action": "Submit the proposal to the State Bank of Pakistan and secure approval for the establishment of the Monetary Policy Committee.",
+        "status": "pending",
+        "result": "Awaiting approval from the State Bank of Pakistan."
+      },
+      {
+        "step_number": 4,
+        "action": "Recruit and appoint members to the Monetary Policy Committee, ensuring a diverse range of expertise and experience.",
+        "status": "pending",
+        "result": "Awaiting recruitment and appointment of committee members."
+      },
+      {
+        "step_number": 5,
+        "action": "Establish clear goals, objectives, and decision-making processes for the Monetary Policy Committee to ensure effective regulation of interest rates and stabilization of inflation.",
+        "status": "pending",
+        "result": "Awaiting development of committee's goals, objectives, and decision-making processes."
+      }
+    ],
+    "constraints": {
+      "feasible": false,
+      "reason": "Establishing a Monetary Policy Committee requires significant resources, expertise, and time. Given the urgency level and time limit, it is not feasible to establish a committee from scratch within 48 hours. Additionally, the budget limit of PKR 1 million is insufficient to cover the costs associated with setting up a committee, including salaries, infrastructure, and other expenses.",
+      "adjustments_needed": "Significant increase in budget, extension of time limit, and prioritization of existing resources and expertise within the State Bank of Pakistan."
+    },
+    "simulation": {
+      "action_taken": "Establish a Monetary Policy Committee to regulate interest rates and stabilize inflation.",
+      "affected_count": 523081,
+      "before_state": "High inflation pressure; volatile lending.",
+      "after_state": "Inflation stabilized; credit flow restricted.",
+      "execution_time": "216ms",
+      "email_draft": "Subject: Urgent: Implementation of HIGH Priority Economic Action\n\nDear Stakeholders,\n\nPlease be advised that the following action has been initiated:\n\"Establish a Monetary Policy Committee to regulate interest rates and stabilize inflation.\"\n\nExpected Impact: ~523,081 individuals/entities.\nCurrent Phase: Inflation stabilized; credit flow restricted.\n\nRegards,\nEconoSense AI System",
+      "notification_sent": 301,
+      "dashboard_updated": true,
+      "logs": [
+        "15:07:04 - System initialized simulation parameters.",
+        "15:09:04 - Risk assessed and validated.",
+        "15:11:04 - Notification dispatched to relevant authorities.",
+        "15:12:04 - Action logged in ledger."
+      ]
+    },
+    "agent_timeline": [
+      {
+        "agent": "ContradictionAgent",
+        "time_ms": 314.86,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Ingesting multiple data sources",
+          "Step 2: Performing cross-document fact checking",
+          "Step 3: Resolving logical inconsistencies",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "IngestionAgent",
+        "time_ms": 0.03,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received raw text input",
+          "Step 2: Removed extra whitespace and formatting anomalies",
+          "Step 3: Sanitized text for downstream agents",
+          "Text ingestion complete."
+        ]
+      },
+      {
+        "agent": "InsightAgent",
+        "time_ms": 463.31,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received clean text",
+          "Step 2: Identifying key economic indicators and sectors",
+          "Step 3: Cross-referencing with Pakistan economic context",
+          "Step 4: Formulating risk score",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "ActionAgent",
+        "time_ms": 504.24,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Analyzing extracted economic insights",
+          "Step 2: Generating priority-based mitigation actions",
+          "Step 3: Assigning timelines and targets for execution",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "ChainAgent",
+        "time_ms": 743.71,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Receiving optimal action from ActionAgent",
+          "Step 2: Breaking down core objective into sequentially dependent tasks",
+          "Step 3: Emitting action chain schema",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "ConstraintAgent",
+        "time_ms": 309.11,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+          "Step 2: Assessing proposed action feasibility against limits",
+          "Step 3: Recommending constraint adjustments",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ]
+      },
+      {
+        "agent": "SimulationAgent",
+        "time_ms": 0.07,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Parsing top-priority action details",
+          "Step 2: Simulating demographic and economic impact",
+          "Step 3: Generating before/after states and communication drafts",
+          "Step 4: Finalizing system logs",
+          "Simulation completed autonomously."
+        ]
+      },
+      {
+        "total_time_ms": 2335.38
+      }
+    ]
+  },
+  "total_time_ms": 2335.38
+}
