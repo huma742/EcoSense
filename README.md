@@ -3,7 +3,7 @@ Autonomous Content-to-Action Agent System
 Built for Google Antigravity Hackathon 2026
 
 ## One Line Pitch
-EconoSense PK transforms Pakistan economy news into autonomous multi-step actions using 8 AI agents — organizations don't just read the news, they respond to it intelligently.
+EconoSense PK transforms Pakistan economy news into autonomous multi-step actions using 9 AI agents — organizations don't just read the news, they respond to it intelligently.
 
 ## Architecture Overview
 **INPUT SOURCES (6 types)**
@@ -12,16 +12,19 @@ Text → URL → PDF → Multi-Source → CSV/JSON → Real-time Feed
                 ANTIGRAVITY ORCHESTRATOR
                         ↓
         ┌───────────────────────────────┐
-        │         8 AGENT PIPELINE      │
-        │  1. IngestionAgent            │
-        │  2. InsightAgent              │
-        │  3. ActionAgent               │
-        │  4. ChainAgent                │
-        │  5. ConstraintAgent           │
-        │  6. ContradictionAgent        │
-        │  7. SimulationAgent           │
-        │  8. TemporalAgent             │
+        │         9 AGENT PIPELINE      │
+        │  1. NoiseFilterAgent          │
+        │  2. IngestionAgent            │
+        │  3. InsightAgent              │
+        │  4. ActionAgent               │
+        │  5. ChainAgent                │
+        │  6. ConstraintAgent           │
+        │  7. ContradictionAgent        │
+        │  8. SimulationAgent           │
+        │  9. TemporalAgent             │
         └───────────────────────────────┘
+
+**AntigravityOrchestrator**: Acts as the central runtime coordinator for all agents, dynamically assigning tasks, tracking execution logs, and handling failures.
                         ↓
              AUTONOMOUS OUTPUT
         Insights → Chained Actions → Simulation → Dashboard
@@ -45,9 +48,10 @@ Antigravity was not just a coding tool — it was the CENTRAL ORCHESTRATOR of th
 * Generated reasoning traces for each agent decision
 * All agent workplans, task plans and decision flows were created by Antigravity
 
-## 8 Agents Explained
+## 9 Agents Explained
 | Agent | Role | Input | Output |
 | :--- | :--- | :--- | :--- |
+| **NoiseFilterAgent** | Filters irrelevant, duplicate, spam content before analysis | Raw text | Relevance score |
 | **IngestionAgent** | Cleans and preprocesses raw input | Raw text | Clean text |
 | **InsightAgent** | Extracts event, sectors, risk score | Clean text | Structured insights |
 | **ActionAgent** | Generates 3 prioritized actions | Insights | HIGH/MED/LOW actions |
@@ -76,11 +80,12 @@ Antigravity was not just a coding tool — it was the CENTRAL ORCHESTRATOR of th
 | **Storage** | SharedPreferences |
 | **HTTP** | httpx, BeautifulSoup4 |
 
-## Cost and Latency
+## Cost and Scalability
 * **Groq API:** Free tier, ~$0.00 per 1M tokens.
 * **Average Analysis Time:** ~2-3 seconds per request.
 * **10x Scaling:** Can handle 10 concurrent users easily without infrastructure changes.
-* **100x Scaling:** Would require a load balancer and multiple backend instances.
+* **100x Scaling:** Would require a load balancer, multiple backend instances, and database caching (e.g., Redis) to serve repeated queries without hitting the LLM.
+* **Cloud Deployment:** Designed to be easily containerized and deployed on serverless cloud platforms like Google Cloud Run or AWS Fargate for automatic horizontal scaling.
 
 ## Agentic Workflow
 User Input
@@ -98,6 +103,12 @@ ConstraintAgent → validates feasibility (budget/time)
 SimulationAgent → simulates outcome (before/after)
     ↓
 Dashboard Updated → action saved → notification sent
+
+## Robustness Evidence
+* **Retry Logic:** Every LLM call uses a 3x exponential backoff retry mechanism to handle transient API errors.
+* **Fallback Mechanisms:** If the API completely fails, agents gracefully degrade by providing default, safe fallback data so the pipeline doesn't crash.
+* **Contradiction Handling:** The `ContradictionAgent` explicitly checks multiple sources for conflicting claims before the data is ingested, ensuring the system doesn't act on disputed information.
+* **Failure Handling:** The `AntigravityOrchestrator` catches and logs individual agent failures, preventing a single step from bringing down the entire system.
 
 ## Evaluation Criteria Mapping
 | Criteria | Weight | How We Meet It |
