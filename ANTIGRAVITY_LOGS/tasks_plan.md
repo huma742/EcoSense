@@ -1,3 +1,32 @@
+## Workplan — Antigravity Reasoning & Planning
+### Problem Analysis
+- Organizations flooded with Pakistan economic news but no system to act on it
+- Existing tools only summarize — no action taken autonomously
+- Need: system that ingests → understands → decides → acts → shows outcome
+### Architecture Decision
+- Flutter mobile app for cross-platform UI
+- FastAPI Python backend for agent orchestration
+- Groq LLM for fast inference
+- 8 specialized agents each handling one responsibility
+### Agent Design Reasoning
+- IngestionAgent: clean raw input before processing
+- InsightAgent: extract meaningful Pakistan-specific economic signals
+- ActionAgent: generate realistic domain-relevant recommendations
+- ChainAgent: chain top action into 3-5 autonomous steps
+- ConstraintAgent: validate feasibility against budget/time limits
+- ContradictionAgent: detect conflicts across multiple sources
+- TemporalAgent: analyze trends over time from CSV data
+- SimulationAgent: simulate before/after state change
+### Tool Selection Reasoning
+- Groq chosen for speed and reliability
+- Flutter chosen for cross-platform mobile + desktop
+- FastAPI chosen for async Python performance
+- Firebase for real-time sync
+### Execution Plan
+- Phase 1: Core agents + basic UI
+- Phase 2: Advanced features — contradiction, temporal, constraints
+- Phase 3: Polish — autonomy score, trace terminal, JSON logs
+
 # EconoSense PK — Antigravity Tasks Plan
 
 ## Advanced Features Implementation
