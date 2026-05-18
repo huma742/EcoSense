@@ -1,0 +1,466 @@
+{
+  "timestamp": "2026-05-18T07:06:38.242278Z",
+  "input_text": "Pakistan economy is showing strong recovery. GDP growth reached 4.5% and inflation is coming under control at 15%.\n\nPakistan economy is in severe crisis. GDP contracted by 2% and inflation remains dangerously high at 35%. IMF warns of default risk.",
+  "orchestrator_decisions": [
+    {
+      "event": "Antigravity Orchestrator starting multi pipeline",
+      "timestamp": "2026-05-18T07:06:35.855447Z"
+    },
+    {
+      "event": "Task assigned: Check for conflicts to ContradictionAgent",
+      "timestamp": "2026-05-18T07:06:35.855465Z"
+    },
+    {
+      "event": "Agent completed: ContradictionAgent",
+      "agent": "ContradictionAgent",
+      "time_ms": 247.89,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Ingesting multiple data sources",
+        "Step 2: Performing cross-document fact checking",
+        "Step 3: Resolving logical inconsistencies",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:06:36.103374Z"
+    },
+    {
+      "event": "Task assigned: Clean text to IngestionAgent",
+      "timestamp": "2026-05-18T07:06:36.103388Z"
+    },
+    {
+      "event": "Agent completed: IngestionAgent",
+      "agent": "IngestionAgent",
+      "time_ms": 0.02,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Received raw text input",
+        "Step 2: Removed extra whitespace and formatting anomalies",
+        "Step 3: Sanitized text for downstream agents",
+        "Text ingestion complete."
+      ],
+      "timestamp": "2026-05-18T07:06:36.103419Z"
+    },
+    {
+      "event": "Task assigned: Extract insights to InsightAgent",
+      "timestamp": "2026-05-18T07:06:36.103426Z"
+    },
+    {
+      "event": "Agent completed: InsightAgent",
+      "agent": "InsightAgent",
+      "time_ms": 277.04,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Received clean text",
+        "Step 2: Identifying key economic indicators and sectors",
+        "Step 3: Cross-referencing with Pakistan economic context",
+        "Step 4: Formulating risk score",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:06:36.380486Z"
+    },
+    {
+      "event": "Task assigned: Generate actions to ActionAgent",
+      "timestamp": "2026-05-18T07:06:36.380501Z"
+    },
+    {
+      "event": "Agent completed: ActionAgent",
+      "agent": "ActionAgent",
+      "time_ms": 693.6,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Analyzing extracted economic insights",
+        "Step 2: Generating priority-based mitigation actions",
+        "Step 3: Assigning timelines and targets for execution",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:06:37.074122Z"
+    },
+    {
+      "event": "Task assigned: Create action chain to ChainAgent",
+      "timestamp": "2026-05-18T07:06:37.074134Z"
+    },
+    {
+      "event": "Agent completed: ChainAgent",
+      "agent": "ChainAgent",
+      "time_ms": 719.86,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Receiving optimal action from ActionAgent",
+        "Step 2: Breaking down core objective into sequentially dependent tasks",
+        "Step 3: Emitting action chain schema",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:06:37.794009Z"
+    },
+    {
+      "event": "Task assigned: Check feasibility to ConstraintAgent",
+      "timestamp": "2026-05-18T07:06:37.794022Z"
+    },
+    {
+      "event": "Agent completed: ConstraintAgent",
+      "agent": "ConstraintAgent",
+      "time_ms": 447.96,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+        "Step 2: Assessing proposed action feasibility against limits",
+        "Step 3: Recommending constraint adjustments",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:06:38.242002Z"
+    },
+    {
+      "event": "Task assigned: Simulate top action to SimulationAgent",
+      "timestamp": "2026-05-18T07:06:38.242015Z"
+    },
+    {
+      "event": "Agent completed: SimulationAgent",
+      "agent": "SimulationAgent",
+      "time_ms": 0.06,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Parsing top-priority action details",
+        "Step 2: Simulating demographic and economic impact",
+        "Step 3: Generating before/after states and communication drafts",
+        "Step 4: Finalizing system logs",
+        "Simulation completed autonomously."
+      ],
+      "timestamp": "2026-05-18T07:06:38.242083Z"
+    },
+    {
+      "event": "Antigravity Orchestrator pipeline complete",
+      "total_time_ms": 2386.63,
+      "timestamp": "2026-05-18T07:06:38.242095Z"
+    }
+  ],
+  "agent_decisions": {
+    "ContradictionAgent": [
+      "Step 1: Ingesting multiple data sources",
+      "Step 2: Performing cross-document fact checking",
+      "Step 3: Resolving logical inconsistencies",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "IngestionAgent": [
+      "Step 1: Received raw text input",
+      "Step 2: Removed extra whitespace and formatting anomalies",
+      "Step 3: Sanitized text for downstream agents",
+      "Text ingestion complete."
+    ],
+    "InsightAgent": [
+      "Step 1: Received clean text",
+      "Step 2: Identifying key economic indicators and sectors",
+      "Step 3: Cross-referencing with Pakistan economic context",
+      "Step 4: Formulating risk score",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ActionAgent": [
+      "Step 1: Analyzing extracted economic insights",
+      "Step 2: Generating priority-based mitigation actions",
+      "Step 3: Assigning timelines and targets for execution",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ChainAgent": [
+      "Step 1: Receiving optimal action from ActionAgent",
+      "Step 2: Breaking down core objective into sequentially dependent tasks",
+      "Step 3: Emitting action chain schema",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ConstraintAgent": [
+      "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+      "Step 2: Assessing proposed action feasibility against limits",
+      "Step 3: Recommending constraint adjustments",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "SimulationAgent": [
+      "Step 1: Parsing top-priority action details",
+      "Step 2: Simulating demographic and economic impact",
+      "Step 3: Generating before/after states and communication drafts",
+      "Step 4: Finalizing system logs",
+      "Simulation completed autonomously."
+    ]
+  },
+  "action_chain": [
+    {
+      "step_number": 1,
+      "action": "Identify and assemble representatives from the Ministry of Finance, State Bank of Pakistan, and relevant private sector stakeholders to form the task force.",
+      "status": "completed",
+      "result": "Task force members identified and assembled."
+    },
+    {
+      "step_number": 2,
+      "action": "Schedule a meeting with the Minister of Finance and Governor State Bank of Pakistan to brief them on the task force and its objectives.",
+      "status": "executing",
+      "result": "Meeting scheduled for tomorrow."
+    },
+    {
+      "step_number": 3,
+      "action": "Conduct the meeting with the Minister of Finance and Governor State Bank of Pakistan to establish clear expectations and timelines for the task force.",
+      "status": "pending",
+      "result": "Awaiting confirmation from the Minister and Governor."
+    },
+    {
+      "step_number": 4,
+      "action": "Establish a communication channel for the task force to share updates and insights on the economic recovery.",
+      "status": "pending",
+      "result": "Awaiting setup of communication channel."
+    },
+    {
+      "step_number": 5,
+      "action": "Develop a plan for the task force to provide regular updates on the economic recovery and identify areas for further improvement.",
+      "status": "pending",
+      "result": "Awaiting development of plan."
+    }
+  ],
+  "constraint_check": {
+    "feasible": false,
+    "reason": "Establishing a task force requires significant resources, including personnel, infrastructure, and communication costs. Given the budget limit of PKR 1 million, it is unlikely that the necessary resources can be allocated within the given time frame of 48 hours.",
+    "adjustments_needed": "Increase budget to accommodate task force establishment costs, or consider alternative, more cost-effective solutions."
+  },
+  "final_output": {
+    "system_autonomy_score": 100,
+    "insights": {
+      "event": "Pakistan economy showing strong recovery",
+      "sectors": [
+        "Manufacturing",
+        "Services",
+        "Agriculture"
+      ],
+      "risk_score": 2,
+      "impact_summary": "Pakistan's economy is showing signs of recovery with a 4.5% GDP growth rate and controlled inflation at 15%, which will positively impact businesses and citizens.",
+      "why_it_matters": "This recovery is critical as it will attract foreign investment and improve the country's economic stability.",
+      "affected_population": "The entire population of Pakistan will benefit from this economic recovery, particularly small businesses and low-income households."
+    },
+    "actions": [
+      {
+        "priority": "HIGH",
+        "description": "Establish a task force to monitor and analyze the economic recovery, comprising representatives from the Ministry of Finance, State Bank of Pakistan, and relevant private sector stakeholders.",
+        "target": "Minister of Finance and Governor State Bank of Pakistan",
+        "timeline": "immediate",
+        "expected_outcome": "Provide regular updates on the economic recovery and identify areas for further improvement."
+      },
+      {
+        "priority": "MED",
+        "description": "Implement targeted tax incentives for small businesses and low-income households to encourage entrepreneurship and stimulate economic growth.",
+        "target": "Federal Board of Revenue",
+        "timeline": "1 month",
+        "expected_outcome": "Increase tax compliance and revenue collection while promoting economic growth and job creation."
+      },
+      {
+        "priority": "LOW",
+        "description": "Develop a comprehensive economic dashboard to track key indicators such as GDP growth rate, inflation, and foreign investment, and make it publicly available.",
+        "target": "Ministry of Finance and State Bank of Pakistan",
+        "timeline": "1 week",
+        "expected_outcome": "Enhance transparency and accountability in economic decision-making and promote public awareness of economic performance."
+      }
+    ],
+    "action_chain": [
+      {
+        "step_number": 1,
+        "action": "Identify and assemble representatives from the Ministry of Finance, State Bank of Pakistan, and relevant private sector stakeholders to form the task force.",
+        "status": "completed",
+        "result": "Task force members identified and assembled."
+      },
+      {
+        "step_number": 2,
+        "action": "Schedule a meeting with the Minister of Finance and Governor State Bank of Pakistan to brief them on the task force and its objectives.",
+        "status": "executing",
+        "result": "Meeting scheduled for tomorrow."
+      },
+      {
+        "step_number": 3,
+        "action": "Conduct the meeting with the Minister of Finance and Governor State Bank of Pakistan to establish clear expectations and timelines for the task force.",
+        "status": "pending",
+        "result": "Awaiting confirmation from the Minister and Governor."
+      },
+      {
+        "step_number": 4,
+        "action": "Establish a communication channel for the task force to share updates and insights on the economic recovery.",
+        "status": "pending",
+        "result": "Awaiting setup of communication channel."
+      },
+      {
+        "step_number": 5,
+        "action": "Develop a plan for the task force to provide regular updates on the economic recovery and identify areas for further improvement.",
+        "status": "pending",
+        "result": "Awaiting development of plan."
+      }
+    ],
+    "constraints": {
+      "feasible": false,
+      "reason": "Establishing a task force requires significant resources, including personnel, infrastructure, and communication costs. Given the budget limit of PKR 1 million, it is unlikely that the necessary resources can be allocated within the given time frame of 48 hours.",
+      "adjustments_needed": "Increase budget to accommodate task force establishment costs, or consider alternative, more cost-effective solutions."
+    },
+    "simulation": {
+      "action_taken": "Establish a task force to monitor and analyze the economic recovery, comprising representatives from the Ministry of Finance, State Bank of Pakistan, and relevant private sector stakeholders.",
+      "affected_count": 538522,
+      "before_state": "Status Quo with moderate inefficiency.",
+      "after_state": "Policy implemented; monitoring initial impact.",
+      "execution_time": "174ms",
+      "email_draft": "Subject: Urgent: Implementation of HIGH Priority Economic Action\n\nDear Stakeholders,\n\nPlease be advised that the following action has been initiated:\n\"Establish a task force to monitor and analyze the economic recovery, comprising representatives from the Ministry of Finance, State Bank of Pakistan, and relevant private sector stakeholders.\"\n\nExpected Impact: ~538,522 individuals/entities.\nCurrent Phase: Policy implemented; monitoring initial impact.\n\nRegards,\nEconoSense AI System",
+      "notification_sent": 37,
+      "dashboard_updated": true,
+      "logs": [
+        "12:01:38 - System initialized simulation parameters.",
+        "12:03:38 - Risk assessed and validated.",
+        "12:05:38 - Notification dispatched to relevant authorities.",
+        "12:06:38 - Action logged in ledger."
+      ]
+    },
+    "agent_timeline": [
+      {
+        "event": "Antigravity Orchestrator starting multi pipeline",
+        "timestamp": "2026-05-18T07:06:35.855447Z"
+      },
+      {
+        "event": "Task assigned: Check for conflicts to ContradictionAgent",
+        "timestamp": "2026-05-18T07:06:35.855465Z"
+      },
+      {
+        "event": "Agent completed: ContradictionAgent",
+        "agent": "ContradictionAgent",
+        "time_ms": 247.89,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Ingesting multiple data sources",
+          "Step 2: Performing cross-document fact checking",
+          "Step 3: Resolving logical inconsistencies",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:06:36.103374Z"
+      },
+      {
+        "event": "Task assigned: Clean text to IngestionAgent",
+        "timestamp": "2026-05-18T07:06:36.103388Z"
+      },
+      {
+        "event": "Agent completed: IngestionAgent",
+        "agent": "IngestionAgent",
+        "time_ms": 0.02,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received raw text input",
+          "Step 2: Removed extra whitespace and formatting anomalies",
+          "Step 3: Sanitized text for downstream agents",
+          "Text ingestion complete."
+        ],
+        "timestamp": "2026-05-18T07:06:36.103419Z"
+      },
+      {
+        "event": "Task assigned: Extract insights to InsightAgent",
+        "timestamp": "2026-05-18T07:06:36.103426Z"
+      },
+      {
+        "event": "Agent completed: InsightAgent",
+        "agent": "InsightAgent",
+        "time_ms": 277.04,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received clean text",
+          "Step 2: Identifying key economic indicators and sectors",
+          "Step 3: Cross-referencing with Pakistan economic context",
+          "Step 4: Formulating risk score",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:06:36.380486Z"
+      },
+      {
+        "event": "Task assigned: Generate actions to ActionAgent",
+        "timestamp": "2026-05-18T07:06:36.380501Z"
+      },
+      {
+        "event": "Agent completed: ActionAgent",
+        "agent": "ActionAgent",
+        "time_ms": 693.6,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Analyzing extracted economic insights",
+          "Step 2: Generating priority-based mitigation actions",
+          "Step 3: Assigning timelines and targets for execution",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:06:37.074122Z"
+      },
+      {
+        "event": "Task assigned: Create action chain to ChainAgent",
+        "timestamp": "2026-05-18T07:06:37.074134Z"
+      },
+      {
+        "event": "Agent completed: ChainAgent",
+        "agent": "ChainAgent",
+        "time_ms": 719.86,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Receiving optimal action from ActionAgent",
+          "Step 2: Breaking down core objective into sequentially dependent tasks",
+          "Step 3: Emitting action chain schema",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:06:37.794009Z"
+      },
+      {
+        "event": "Task assigned: Check feasibility to ConstraintAgent",
+        "timestamp": "2026-05-18T07:06:37.794022Z"
+      },
+      {
+        "event": "Agent completed: ConstraintAgent",
+        "agent": "ConstraintAgent",
+        "time_ms": 447.96,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+          "Step 2: Assessing proposed action feasibility against limits",
+          "Step 3: Recommending constraint adjustments",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:06:38.242002Z"
+      },
+      {
+        "event": "Task assigned: Simulate top action to SimulationAgent",
+        "timestamp": "2026-05-18T07:06:38.242015Z"
+      },
+      {
+        "event": "Agent completed: SimulationAgent",
+        "agent": "SimulationAgent",
+        "time_ms": 0.06,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Parsing top-priority action details",
+          "Step 2: Simulating demographic and economic impact",
+          "Step 3: Generating before/after states and communication drafts",
+          "Step 4: Finalizing system logs",
+          "Simulation completed autonomously."
+        ],
+        "timestamp": "2026-05-18T07:06:38.242083Z"
+      },
+      {
+        "event": "Antigravity Orchestrator pipeline complete",
+        "total_time_ms": 2386.63,
+        "timestamp": "2026-05-18T07:06:38.242095Z"
+      }
+    ],
+    "contradiction_analysis": {
+      "contradiction_found": true,
+      "conflicting_claims": [
+        "GDP growth reached 4.5%",
+        "GDP contracted by 2%"
+      ],
+      "resolution": "The two texts provide conflicting information about the state of the Pakistan economy, specifically regarding GDP growth."
+    }
+  },
+  "total_time_ms": 2386.63
+}

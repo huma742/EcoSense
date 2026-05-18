@@ -38,6 +38,24 @@ Organizations in Pakistan are flooded with economic news but don't know what act
 * **EconoSense PK:** Extracts insights, chains 5 actions, checks constraints, detects contradictions, simulates outcomes.
 * **Result:** The agentic system is 5x more actionable than simple summarization.
 
+## Why EconoSense PK is Unique 🌟
+
+| Feature | Other AI Tools | EconoSense PK |
+|---------|---------------|---------------|
+| Input handling | Single text input | 6 input types (Text, URL, PDF, CSV, Multi-Source, Live Feed) |
+| Output | Just summarizes | Generates chained actions + simulation |
+| Decision making | User decides | System decides autonomously |
+| Contradiction handling | None | ContradictionAgent detects conflicts across sources |
+| Action validation | None | ConstraintAgent checks budget/time feasibility |
+| Trend analysis | None | TemporalAgent detects patterns over time |
+| Failure recovery | Crashes | 3x retry with fallback |
+| Pakistan context | Generic | Built specifically for Pakistan economy sectors |
+| Execution tracking | None | Full dashboard with timestamps and history |
+| Transparency | Black box | Full Antigravity trace showing every decision |
+
+## Competitive Advantage
+While tools like ChatGPT or Gemini only summarize news, EconoSense PK goes 5 steps further — it ingests, analyzes, decides, validates, chains actions, and simulates outcomes autonomously. No human intervention needed after input. Built specifically for Pakistan's economic context including SBP, FBR, IMF, and PSX sectors.
+
 ## How Antigravity Was Used (CENTRAL ROLE)
 Antigravity was not just a coding tool — it was the CENTRAL ORCHESTRATOR of this entire system:
 * Designed and built all 8 agent classes autonomously

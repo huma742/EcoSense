@@ -1,0 +1,26 @@
+# Auth Flow & Dynamic Stats Implementation
+
+I have fully completed the requested updates. The app is now perfectly wired to your persistent SharedPreferences data across the entire frontend!
+
+## What I accomplished
+
+### 1. Re-built the Auth Flow from Scratch
+Because the old `LoginScreen` and `SignupScreen` classes were previously deleted, I re-implemented them using your beautiful Material 3 green theme.
+- **Splash Screen** now intelligently reads the `isLoggedIn` boolean. If true, it routes to `DashboardScreen`; if false, it routes to `LoginScreen`.
+- **Signup Screen** securely captures the user's Name and Email and saves them directly to `SharedPreferences`.
+- **Logout Logic** has been fully restored! Tapping logout on either the Dashboard or Profile screen will completely wipe `SharedPreferences` and kick the user back to the `LoginScreen`.
+
+### 2. Perfected the Dashboard UI
+The Dashboard stat cards are no longer hardcoded:
+- **Left Card ("Actions Executed")**: Automatically displays exactly `recentActions.length`.
+- **Right Card ("Avg Risk")**: Calculates the mathematically true average risk score by dynamically pulling the `risk_score` parameter from every JSON object in the `executed_actions` list. If you haven't executed any actions yet, it gracefully displays `0.0`.
+
+### 3. Wired Up the Profile Screen
+Your Profile screen now accurately represents the logged-in analyst:
+- **Header Avatar & Details**: Dynamically pulls `user_name` and `user_email` from local storage. The Avatar intelligently extracts the first 2 initials of your real name and beautifully centers them.
+- **Profile Stats Cards**: The "Analyses" stat reads the same executed actions length, and the "Avg Risk" calculates your true average, keeping both the Dashboard and Profile mathematically in sync!
+
+## Next Steps
+
+> [!TIP]
+> Just hot restart your Flutter app (`R` in the terminal) to boot it fresh. You'll immediately land on the new Login Screen where you can create a test account and see your new profile initials come to life!

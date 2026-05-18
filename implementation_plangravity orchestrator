@@ -1,0 +1,37 @@
+# Goal
+Refactor `backend/main.py` to introduce an `AntigravityOrchestrator` class that will centrally manage all agents and coordinate the pipeline for all analysis endpoints. This class will provide orchestration logs and standard trace outputs.
+
+## Proposed Changes
+
+### `backend/main.py`
+
+#### 1. Define `AntigravityOrchestrator`
+I will create the `AntigravityOrchestrator` class with the following methods:
+- `__init__(self)`: Initialize `self.agents`, `self.active_tasks`, and `self.execution_log` (timeline). Register all 8 agent instances here.
+- `spawn_agent(self, agent_name, agent_instance)`: Register an agent and add an orchestration log: `"Antigravity Orchestrator spawned {agent_name}"`.
+- `assign_task(self, agent_name, task_data, method_name="process")`: Call the agent's method dynamically or based on custom logic, log `"Task assigned to {agent_name}"` and `"Agent completed"`, and append the execution time, retries, and reasoning trace to the `agent_timeline`.
+- `handle_failure(self, agent_name, error)`: Handle failures by logging them.
+- `monitor_agents(self)`: Return the status of all active agents.
+- `coordinate_pipeline(self, input_data, pipeline_type="text")`: 
+  - Manage the full 8-agent pipeline based on the `pipeline_type` (text, url, multi, csv).
+  - Conditionally run `URLFetcher` (for url), `ContradictionAgent` (for multi), or `TemporalAgent` (for csv) as the first step.
+  - Run the core 6 agents: `IngestionAgent` -> `InsightAgent` -> `ActionAgent` -> `ChainAgent` -> `ConstraintAgent` -> `SimulationAgent`.
+  - Compile the `agent_timeline`, calculate the autonomy score, and save the trace log with orchestrator decisions.
+  - Return the final output object.
+
+#### 2. Update Endpoints
+- Replace the direct agent calls and manual timeline tracking in `/analyze`, `/analyze-url`, `/analyze-multi`, and `/analyze-csv` with a single call to `orchestrator.coordinate_pipeline(data, type)`.
+- For example, `/analyze` will call `orchestrator.coordinate_pipeline(request.news_text, "text")`.
+
+#### 3. Update Trace Logs
+- Ensure `save_trace_log` or the orchestrator's equivalent includes the `orchestrator_decisions` or includes orchestrator steps in the `agent_timeline`.
+
+## Open Questions
+
+1. Should `save_trace_log` be moved inside the `AntigravityOrchestrator` class as well, since it handles the full trace output? I will move it into the orchestrator for cleaner encapsulation unless instructed otherwise.
+2. For the "full 8-agent pipeline", should `coordinate_pipeline` only run the context-specific agents (like `ContradictionAgent` for multi-source) when their specific endpoint is called, or should it attempt to run them on standard text as well? I will run them based on the `pipeline_type` to preserve current logic.
+
+## Verification Plan
+- Send a request to each endpoint (`/analyze`, `/analyze-url`, `/analyze-multi`, `/analyze-csv`).
+- Verify that the API responses match the previous structure but include the new orchestration logs in the `agent_timeline`.
+- Check the generated trace files in `antigravity-artifacts-logs` to ensure they contain orchestrator decisions.

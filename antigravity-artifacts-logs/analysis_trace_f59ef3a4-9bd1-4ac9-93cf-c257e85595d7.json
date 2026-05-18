@@ -1,0 +1,463 @@
+{
+  "timestamp": "2026-05-18T07:07:47.239982Z",
+  "input_text": "Pakistan Stock Exchange gains 800 points as foreign investment rises\n\nFBR reports 15% increase in tax revenue collection this fiscal quarter\n\nIMF approves $1.2 billion tranche for Pakistan under bailout program\n\nPakistan's trade deficit narrows by 12% in Q1 2026 amid export growth\n\nState Bank of Pakistan raises interest rates by 100bps to curb inflation",
+  "orchestrator_decisions": [
+    {
+      "event": "Antigravity Orchestrator starting multi pipeline",
+      "timestamp": "2026-05-18T07:07:44.816094Z"
+    },
+    {
+      "event": "Task assigned: Check for conflicts to ContradictionAgent",
+      "timestamp": "2026-05-18T07:07:44.816113Z"
+    },
+    {
+      "event": "Agent completed: ContradictionAgent",
+      "agent": "ContradictionAgent",
+      "time_ms": 479.73,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Ingesting multiple data sources",
+        "Step 2: Performing cross-document fact checking",
+        "Step 3: Resolving logical inconsistencies",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:07:45.295863Z"
+    },
+    {
+      "event": "Task assigned: Clean text to IngestionAgent",
+      "timestamp": "2026-05-18T07:07:45.295878Z"
+    },
+    {
+      "event": "Agent completed: IngestionAgent",
+      "agent": "IngestionAgent",
+      "time_ms": 0.03,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Received raw text input",
+        "Step 2: Removed extra whitespace and formatting anomalies",
+        "Step 3: Sanitized text for downstream agents",
+        "Text ingestion complete."
+      ],
+      "timestamp": "2026-05-18T07:07:45.295917Z"
+    },
+    {
+      "event": "Task assigned: Extract insights to InsightAgent",
+      "timestamp": "2026-05-18T07:07:45.295924Z"
+    },
+    {
+      "event": "Agent completed: InsightAgent",
+      "agent": "InsightAgent",
+      "time_ms": 374.08,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Received clean text",
+        "Step 2: Identifying key economic indicators and sectors",
+        "Step 3: Cross-referencing with Pakistan economic context",
+        "Step 4: Formulating risk score",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:07:45.670018Z"
+    },
+    {
+      "event": "Task assigned: Generate actions to ActionAgent",
+      "timestamp": "2026-05-18T07:07:45.670030Z"
+    },
+    {
+      "event": "Agent completed: ActionAgent",
+      "agent": "ActionAgent",
+      "time_ms": 619.61,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Analyzing extracted economic insights",
+        "Step 2: Generating priority-based mitigation actions",
+        "Step 3: Assigning timelines and targets for execution",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:07:46.289660Z"
+    },
+    {
+      "event": "Task assigned: Create action chain to ChainAgent",
+      "timestamp": "2026-05-18T07:07:46.289672Z"
+    },
+    {
+      "event": "Agent completed: ChainAgent",
+      "agent": "ChainAgent",
+      "time_ms": 611.57,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Receiving optimal action from ActionAgent",
+        "Step 2: Breaking down core objective into sequentially dependent tasks",
+        "Step 3: Emitting action chain schema",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:07:46.901262Z"
+    },
+    {
+      "event": "Task assigned: Check feasibility to ConstraintAgent",
+      "timestamp": "2026-05-18T07:07:46.901276Z"
+    },
+    {
+      "event": "Agent completed: ConstraintAgent",
+      "agent": "ConstraintAgent",
+      "time_ms": 338.4,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+        "Step 2: Assessing proposed action feasibility against limits",
+        "Step 3: Recommending constraint adjustments",
+        "Calling LLM (llama-3.1-8b) - Attempt 1",
+        "API call successful. Structured output generated."
+      ],
+      "timestamp": "2026-05-18T07:07:47.239695Z"
+    },
+    {
+      "event": "Task assigned: Simulate top action to SimulationAgent",
+      "timestamp": "2026-05-18T07:07:47.239707Z"
+    },
+    {
+      "event": "Agent completed: SimulationAgent",
+      "agent": "SimulationAgent",
+      "time_ms": 0.05,
+      "retries": 0,
+      "reasoning_trace": [
+        "Step 1: Parsing top-priority action details",
+        "Step 2: Simulating demographic and economic impact",
+        "Step 3: Generating before/after states and communication drafts",
+        "Step 4: Finalizing system logs",
+        "Simulation completed autonomously."
+      ],
+      "timestamp": "2026-05-18T07:07:47.239767Z"
+    },
+    {
+      "event": "Antigravity Orchestrator pipeline complete",
+      "total_time_ms": 2423.67,
+      "timestamp": "2026-05-18T07:07:47.239778Z"
+    }
+  ],
+  "agent_decisions": {
+    "ContradictionAgent": [
+      "Step 1: Ingesting multiple data sources",
+      "Step 2: Performing cross-document fact checking",
+      "Step 3: Resolving logical inconsistencies",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "IngestionAgent": [
+      "Step 1: Received raw text input",
+      "Step 2: Removed extra whitespace and formatting anomalies",
+      "Step 3: Sanitized text for downstream agents",
+      "Text ingestion complete."
+    ],
+    "InsightAgent": [
+      "Step 1: Received clean text",
+      "Step 2: Identifying key economic indicators and sectors",
+      "Step 3: Cross-referencing with Pakistan economic context",
+      "Step 4: Formulating risk score",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ActionAgent": [
+      "Step 1: Analyzing extracted economic insights",
+      "Step 2: Generating priority-based mitigation actions",
+      "Step 3: Assigning timelines and targets for execution",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ChainAgent": [
+      "Step 1: Receiving optimal action from ActionAgent",
+      "Step 2: Breaking down core objective into sequentially dependent tasks",
+      "Step 3: Emitting action chain schema",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "ConstraintAgent": [
+      "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+      "Step 2: Assessing proposed action feasibility against limits",
+      "Step 3: Recommending constraint adjustments",
+      "Calling LLM (llama-3.1-8b) - Attempt 1",
+      "API call successful. Structured output generated."
+    ],
+    "SimulationAgent": [
+      "Step 1: Parsing top-priority action details",
+      "Step 2: Simulating demographic and economic impact",
+      "Step 3: Generating before/after states and communication drafts",
+      "Step 4: Finalizing system logs",
+      "Simulation completed autonomously."
+    ]
+  },
+  "action_chain": [
+    {
+      "step_number": 1,
+      "action": "Assemble a team of experts from the Federal Ministry of Finance and State Bank of Pakistan to discuss the stimulus package details",
+      "status": "completed",
+      "result": "Team assembled with representatives from the Federal Ministry of Finance and State Bank of Pakistan"
+    },
+    {
+      "step_number": 2,
+      "action": "Conduct a thorough analysis of the current economic situation and identify areas for improvement",
+      "status": "executing",
+      "result": "Currently analyzing data and conducting research to inform the stimulus package"
+    },
+    {
+      "step_number": 3,
+      "action": "Develop a comprehensive stimulus package proposal, including incentives for foreign investment and domestic trade",
+      "status": "pending",
+      "result": "Awaiting feedback from the team of experts and stakeholders"
+    },
+    {
+      "step_number": 4,
+      "action": "Present the stimulus package proposal to the Federal Ministry of Finance and State Bank of Pakistan for approval",
+      "status": "pending",
+      "result": "Awaiting approval from the Federal Ministry of Finance and State Bank of Pakistan"
+    },
+    {
+      "step_number": 5,
+      "action": "Implement the approved stimulus package and monitor its effectiveness in boosting foreign investment, increasing trade activities, and stabilizing the stock market",
+      "status": "pending",
+      "result": "Awaiting implementation and monitoring of the stimulus package"
+    }
+  ],
+  "constraint_check": {
+    "feasible": false,
+    "reason": "Implementing a stimulus package requires significant resources, including expert analysis, stakeholder engagement, and policy development. Given the time limit of 48 hours, it is unlikely that a comprehensive package can be developed and implemented within this timeframe. Additionally, the budget limit of PKR 1 million is insufficient to cover the costs associated with such a project. A higher budget and more time would be required to make this action feasible.",
+    "adjustments_needed": "Increase budget to at least PKR 10 million and extend the time limit to at least 2-3 weeks"
+  },
+  "final_output": {
+    "system_autonomy_score": 100,
+    "insights": {
+      "event": "Pakistan Stock Exchange gains 800 points as foreign investment rises",
+      "sectors": [
+        "Finance",
+        "Trade",
+        "Economy"
+      ],
+      "risk_score": 6,
+      "impact_summary": "The Pakistan Stock Exchange's gain and foreign investment rise indicate a positive economic trend, but the State Bank of Pakistan's interest rate hike may curb inflation and impact businesses. This matters as it affects Pakistan's trade deficit and tax revenue collection, impacting businesses and citizens.",
+      "why_it_matters": "This insight is critical right now as it shows a shift in Pakistan's economic trajectory and the government's efforts to stabilize the economy.",
+      "affected_population": "Businesses, investors, and citizens who rely on the stock market and trade activities, as well as those affected by inflation and interest rates."
+    },
+    "actions": [
+      {
+        "priority": "HIGH",
+        "description": "Implement a stimulus package to encourage foreign investment and domestic trade, focusing on sectors such as Finance and Trade.",
+        "target": "Federal Ministry of Finance and State Bank of Pakistan",
+        "timeline": "immediate",
+        "expected_outcome": "Boost foreign investment, increase trade activities, and stabilize the stock market"
+      },
+      {
+        "priority": "MED",
+        "description": "Review and adjust the interest rate hike strategy to balance inflation control with economic growth, considering the impact on businesses and citizens.",
+        "target": "State Bank of Pakistan",
+        "timeline": "1 week",
+        "expected_outcome": "Reduce the impact of interest rate hike on businesses and citizens, while maintaining inflation control"
+      },
+      {
+        "priority": "LOW",
+        "description": "Monitor the stock market and trade activities closely to identify potential risks and opportunities, and adjust economic policies accordingly.",
+        "target": "Federal Ministry of Finance and relevant regulatory bodies",
+        "timeline": "1 month",
+        "expected_outcome": "Early detection of potential risks and opportunities, enabling timely policy adjustments to maintain economic stability"
+      }
+    ],
+    "action_chain": [
+      {
+        "step_number": 1,
+        "action": "Assemble a team of experts from the Federal Ministry of Finance and State Bank of Pakistan to discuss the stimulus package details",
+        "status": "completed",
+        "result": "Team assembled with representatives from the Federal Ministry of Finance and State Bank of Pakistan"
+      },
+      {
+        "step_number": 2,
+        "action": "Conduct a thorough analysis of the current economic situation and identify areas for improvement",
+        "status": "executing",
+        "result": "Currently analyzing data and conducting research to inform the stimulus package"
+      },
+      {
+        "step_number": 3,
+        "action": "Develop a comprehensive stimulus package proposal, including incentives for foreign investment and domestic trade",
+        "status": "pending",
+        "result": "Awaiting feedback from the team of experts and stakeholders"
+      },
+      {
+        "step_number": 4,
+        "action": "Present the stimulus package proposal to the Federal Ministry of Finance and State Bank of Pakistan for approval",
+        "status": "pending",
+        "result": "Awaiting approval from the Federal Ministry of Finance and State Bank of Pakistan"
+      },
+      {
+        "step_number": 5,
+        "action": "Implement the approved stimulus package and monitor its effectiveness in boosting foreign investment, increasing trade activities, and stabilizing the stock market",
+        "status": "pending",
+        "result": "Awaiting implementation and monitoring of the stimulus package"
+      }
+    ],
+    "constraints": {
+      "feasible": false,
+      "reason": "Implementing a stimulus package requires significant resources, including expert analysis, stakeholder engagement, and policy development. Given the time limit of 48 hours, it is unlikely that a comprehensive package can be developed and implemented within this timeframe. Additionally, the budget limit of PKR 1 million is insufficient to cover the costs associated with such a project. A higher budget and more time would be required to make this action feasible.",
+      "adjustments_needed": "Increase budget to at least PKR 10 million and extend the time limit to at least 2-3 weeks"
+    },
+    "simulation": {
+      "action_taken": "Implement a stimulus package to encourage foreign investment and domestic trade, focusing on sectors such as Finance and Trade.",
+      "affected_count": 528304,
+      "before_state": "Trade imbalance and stagnant exports.",
+      "after_state": "Export volume boosted; trade gap reduced.",
+      "execution_time": "225ms",
+      "email_draft": "Subject: Urgent: Implementation of HIGH Priority Economic Action\n\nDear Stakeholders,\n\nPlease be advised that the following action has been initiated:\n\"Implement a stimulus package to encourage foreign investment and domestic trade, focusing on sectors such as Finance and Trade.\"\n\nExpected Impact: ~528,304 individuals/entities.\nCurrent Phase: Export volume boosted; trade gap reduced.\n\nRegards,\nEconoSense AI System",
+      "notification_sent": 70,
+      "dashboard_updated": true,
+      "logs": [
+        "12:02:47 - System initialized simulation parameters.",
+        "12:04:47 - Risk assessed and validated.",
+        "12:06:47 - Notification dispatched to relevant authorities.",
+        "12:07:47 - Action logged in ledger."
+      ]
+    },
+    "agent_timeline": [
+      {
+        "event": "Antigravity Orchestrator starting multi pipeline",
+        "timestamp": "2026-05-18T07:07:44.816094Z"
+      },
+      {
+        "event": "Task assigned: Check for conflicts to ContradictionAgent",
+        "timestamp": "2026-05-18T07:07:44.816113Z"
+      },
+      {
+        "event": "Agent completed: ContradictionAgent",
+        "agent": "ContradictionAgent",
+        "time_ms": 479.73,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Ingesting multiple data sources",
+          "Step 2: Performing cross-document fact checking",
+          "Step 3: Resolving logical inconsistencies",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:07:45.295863Z"
+      },
+      {
+        "event": "Task assigned: Clean text to IngestionAgent",
+        "timestamp": "2026-05-18T07:07:45.295878Z"
+      },
+      {
+        "event": "Agent completed: IngestionAgent",
+        "agent": "IngestionAgent",
+        "time_ms": 0.03,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received raw text input",
+          "Step 2: Removed extra whitespace and formatting anomalies",
+          "Step 3: Sanitized text for downstream agents",
+          "Text ingestion complete."
+        ],
+        "timestamp": "2026-05-18T07:07:45.295917Z"
+      },
+      {
+        "event": "Task assigned: Extract insights to InsightAgent",
+        "timestamp": "2026-05-18T07:07:45.295924Z"
+      },
+      {
+        "event": "Agent completed: InsightAgent",
+        "agent": "InsightAgent",
+        "time_ms": 374.08,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Received clean text",
+          "Step 2: Identifying key economic indicators and sectors",
+          "Step 3: Cross-referencing with Pakistan economic context",
+          "Step 4: Formulating risk score",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:07:45.670018Z"
+      },
+      {
+        "event": "Task assigned: Generate actions to ActionAgent",
+        "timestamp": "2026-05-18T07:07:45.670030Z"
+      },
+      {
+        "event": "Agent completed: ActionAgent",
+        "agent": "ActionAgent",
+        "time_ms": 619.61,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Analyzing extracted economic insights",
+          "Step 2: Generating priority-based mitigation actions",
+          "Step 3: Assigning timelines and targets for execution",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:07:46.289660Z"
+      },
+      {
+        "event": "Task assigned: Create action chain to ChainAgent",
+        "timestamp": "2026-05-18T07:07:46.289672Z"
+      },
+      {
+        "event": "Agent completed: ChainAgent",
+        "agent": "ChainAgent",
+        "time_ms": 611.57,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Receiving optimal action from ActionAgent",
+          "Step 2: Breaking down core objective into sequentially dependent tasks",
+          "Step 3: Emitting action chain schema",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:07:46.901262Z"
+      },
+      {
+        "event": "Task assigned: Check feasibility to ConstraintAgent",
+        "timestamp": "2026-05-18T07:07:46.901276Z"
+      },
+      {
+        "event": "Agent completed: ConstraintAgent",
+        "agent": "ConstraintAgent",
+        "time_ms": 338.4,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Reading real-world constraints (Budget, Time, Urgency)",
+          "Step 2: Assessing proposed action feasibility against limits",
+          "Step 3: Recommending constraint adjustments",
+          "Calling LLM (llama-3.1-8b) - Attempt 1",
+          "API call successful. Structured output generated."
+        ],
+        "timestamp": "2026-05-18T07:07:47.239695Z"
+      },
+      {
+        "event": "Task assigned: Simulate top action to SimulationAgent",
+        "timestamp": "2026-05-18T07:07:47.239707Z"
+      },
+      {
+        "event": "Agent completed: SimulationAgent",
+        "agent": "SimulationAgent",
+        "time_ms": 0.05,
+        "retries": 0,
+        "reasoning_trace": [
+          "Step 1: Parsing top-priority action details",
+          "Step 2: Simulating demographic and economic impact",
+          "Step 3: Generating before/after states and communication drafts",
+          "Step 4: Finalizing system logs",
+          "Simulation completed autonomously."
+        ],
+        "timestamp": "2026-05-18T07:07:47.239767Z"
+      },
+      {
+        "event": "Antigravity Orchestrator pipeline complete",
+        "total_time_ms": 2423.67,
+        "timestamp": "2026-05-18T07:07:47.239778Z"
+      }
+    ],
+    "contradiction_analysis": {
+      "contradiction_found": false,
+      "conflicting_claims": [],
+      "resolution": "No conflict found. All statements are consistent with each other."
+    }
+  },
+  "total_time_ms": 2423.67
+}

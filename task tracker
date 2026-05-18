@@ -1,0 +1,14 @@
+# Task Tracker: Auth Flow & Dynamic Stats
+
+- `[x]` **Dashboard Analytics**
+  - `[x]` Modify `_executeAction()` to accept and save `riskScore`.
+  - `[x]` Update Dashboard Stat Cards: Left (Actions Executed), Right (Avg Risk).
+- `[x]` **Profile Screen Updates**
+  - `[x]` Load real `user_name` and `user_email` in header.
+  - `[x]` Calculate avatar initials dynamically.
+  - `[x]` Update Profile Stat Cards: Analyses, Avg Risk, Active Days.
+- `[x]` **Authentication Flow**
+  - `[x]` Create `LoginScreen` with Email/Password fields.
+  - `[x]` Create `SignupScreen` to save `user_name`, `user_email`, and `isLoggedIn`.
+  - `[x]` Update `SplashScreen` logic.
+  - `[x]` Update Logout logic to clear `SharedPreferences`.

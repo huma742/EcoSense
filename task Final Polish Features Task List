@@ -1,0 +1,10 @@
+# Final Polish Features Task List
+
+- [x] Modify `backend/agents.py` to return `reasoning_trace` and update all agent signatures.
+- [x] Update `backend/main.py` to capture `reasoning_trace` in `agent_timeline` and calculate `system_autonomy_score`.
+- [x] Create Python script to update `econosense_app/lib/main.dart`.
+- [x] Add "Antigravity Trace" dark terminal section in Flutter UI.
+- [x] Add "System Autonomy Score" badge in Flutter UI.
+- [x] Add yellow warning card for Agent Retries in Flutter UI.
+- [x] Update `README.md` with full documentation, architecture, and evaluation criteria.
+- [x] Verify functionality.

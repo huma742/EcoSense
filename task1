@@ -1,0 +1,7 @@
+- `[x]` Refactor `backend/main.py`
+  - `[x]` Define `AntigravityOrchestrator` class
+  - `[x]` Implement `__init__`, `spawn_agent`, `assign_task`, `handle_failure`, `monitor_agents`
+  - `[x]` Implement `coordinate_pipeline` logic for all endpoints
+  - `[x]` Integrate `save_trace_log` into the orchestrator
+  - `[x]` Update endpoints (`/analyze`, `/analyze-url`, `/analyze-multi`, `/analyze-csv`) to use the orchestrator
+- `[ ]` Verify API responses and trace logs
